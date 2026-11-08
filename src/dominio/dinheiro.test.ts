@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { centParaTexto, formatarEuros, lerValor } from './dinheiro';
+import { centParaTexto, formatarEuros, lerSaldo, lerValor } from './dinheiro';
 
 describe('lerValor', () => {
   it.each([
@@ -31,4 +31,16 @@ describe('formatação', () => {
     expect(t).toContain('1234,56');
     expect(t).toContain('€');
   });
+});
+
+describe('lerSaldo (pode ser zero ou negativo)', () => {
+  it.each([
+    ['-45,50', -4550],
+    ['−12', -1200],
+    ['0', 0],
+    ['0,00', 0],
+    ['2.350,00', 235000],
+    [' - 3 ', -300],
+  ])('%s -> %i', (t, e) => expect(lerSaldo(t)).toBe(e));
+  it.each(['', '-', 'abc', '1,234', '--3'])('rejeita %s', (t) => expect(lerSaldo(t)).toBeNull());
 });

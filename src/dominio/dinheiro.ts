@@ -38,3 +38,14 @@ const fmt = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' 
 export function formatarEuros(cent: number): string {
   return fmt.format(cent / 100);
 }
+
+/** Lê um saldo: como lerValor, mas aceita zero e sinal negativo ("-45,50", "−12"). */
+export function lerSaldo(texto: string): number | null {
+  const t = texto.replace(/[\s  ]/g, '').replace('−', '-');
+  const negativo = t.startsWith('-');
+  const resto = negativo ? t.slice(1) : t;
+  if (/^0+([.,]0{1,2})?$/.test(resto)) return 0;
+  const cent = lerValor(resto);
+  if (cent === null) return null;
+  return negativo ? -cent : cent;
+}

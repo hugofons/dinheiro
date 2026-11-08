@@ -9,13 +9,46 @@ export interface Categoria {
   ordem: number;
 }
 
+/** Tipo de um movimento. As transferências passam dinheiro entre contas e não são gastos nem receitas. */
+export type TipoMovimento = Tipo | 'transferencia';
+
 export interface Movimento {
   id: string;
-  tipo: Tipo;
+  tipo: TipoMovimento;
   valorCent: number;
-  categoriaId: string;
+  categoriaId: string; // '' nas transferências
+  contaId: string; // conta de onde sai (despesa, transferência) ou onde entra (receita)
+  contaDestinoId?: string; // só nas transferências
   data: string; // AAAA-MM-DD
   nota: string;
+  criadoEm: number;
+}
+
+export type TipoConta = 'ordem' | 'poupanca' | 'dinheiro' | 'cartao' | 'investimento';
+
+export const TIPOS_CONTA: { tipo: TipoConta; nome: string }[] = [
+  { tipo: 'ordem', nome: 'Conta à ordem' },
+  { tipo: 'poupanca', nome: 'Poupança' },
+  { tipo: 'dinheiro', nome: 'Dinheiro' },
+  { tipo: 'cartao', nome: 'Cartão de crédito' },
+  { tipo: 'investimento', nome: 'Investimentos' },
+];
+
+export interface Conta {
+  id: string;
+  nome: string;
+  tipo: TipoConta;
+  cor: string;
+  arquivada: boolean;
+  ordem: number;
+}
+
+/** "Nesta data, depois do que já estava registado, a conta tinha este saldo." */
+export interface Acerto {
+  id: string;
+  contaId: string;
+  data: string; // AAAA-MM-DD
+  saldoCent: number; // pode ser negativo
   criadoEm: number;
 }
 

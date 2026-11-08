@@ -14,7 +14,8 @@ function somar(movs: Movimento[]): Totais {
   let receitas = 0;
   for (const m of movs) {
     if (m.tipo === 'despesa') gastos += m.valorCent;
-    else receitas += m.valorCent;
+    else if (m.tipo === 'receita') receitas += m.valorCent;
+    // transferências só mudam dinheiro de conta: não são gastos nem receitas
   }
   return { gastos, receitas, saldo: receitas - gastos };
 }

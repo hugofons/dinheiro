@@ -4,7 +4,7 @@ import type { Movimento } from './tipos';
 
 let n = 0;
 const mv = (data: string, tipo: Movimento['tipo'], valorCent: number, categoriaId: string): Movimento => ({
-  id: `m${++n}`, data, tipo, valorCent, categoriaId, nota: '', criadoEm: n,
+  id: `m${++n}`, data, tipo, valorCent, categoriaId, contaId: 'conta', nota: '', criadoEm: n,
 });
 
 const movs: Movimento[] = [
@@ -66,5 +66,18 @@ describe('variacao', () => {
     expect(variacao(112, 100)).toBe(12);
     expect(variacao(50, 100)).toBe(-50);
     expect(variacao(10, 0)).toBeNull();
+  });
+});
+
+describe('transferências', () => {
+  const t: Movimento = { id: 't', data: '2026-10-07', tipo: 'transferencia', valorCent: 50000, categoriaId: '', contaId: 'a', contaDestinoId: 'b', nota: '', criadoEm: 99 };
+  const com = [...movs, t];
+  it('não contam como gastos nem receitas', () => {
+    expect(totaisMes(com, out)).toEqual({ gastos: 10000, receitas: 150000, saldo: 140000 });
+    expect(gastosPorCategoria(com, out).map((x) => x.categoriaId)).not.toContain('');
+    expect(serieMeses(com, { ano: 2026, mes: 11 })[10]).toMatchObject({ gastos: 10000, receitas: 150000 });
+  });
+  it('aparecem na lista do mês', () => {
+    expect(movimentosDoMes(com, out).flatMap((d) => d.movs).some((m) => m.id === 't')).toBe(true);
   });
 });

@@ -109,3 +109,27 @@ Vite + TypeScript + Preact, Chart.js, Dexie, vite-plugin-pwa. Código em `src/`:
 
 - Vitest para `src/dominio/` (todos os cálculos e o CSV, incluindo ida e volta exportar → importar) e para a importação em `src/dados/` com `fake-indexeddb`.
 - Verificação manual no browser a 375 px de largura: registar, editar, apagar, mudar de mês, evolução, exportar e importar, funcionar sem rede depois de instalada.
+
+---
+
+## Adenda 2026-11-08 — Contas e património
+
+Pedido: ver quanto dinheiro está em cada conta, atualizar os saldos de todas as contas e ver as estatísticas como um todo.
+
+**Conta** `{ id, nome, tipo: 'ordem'|'poupanca'|'dinheiro'|'cartao'|'investimento', cor, arquivada, ordem }`. Primeira abertura (e migração) cria "Conta principal" (à ordem); movimentos existentes passam a pertencer-lhe.
+
+**Acerto de saldo** `{ id, contaId, data, saldoCent (pode ser negativo), criadoEm }`: "nesta data, depois do que já estava registado, a conta tinha X". O saldo de uma conta numa data é calculado a partir do acerto mais próximo:
+- há acerto com `data ≤ dia`: o mais recente desses + efeito dos movimentos posteriores a ele (data maior, ou mesma data e criados depois) até ao dia;
+- só há acertos depois do dia: o primeiro acerto − efeito dos movimentos entre o dia e esse acerto;
+- sem acertos: soma do efeito de todos os movimentos até ao dia.
+
+**Movimento** ganha `contaId` e o tipo `transferencia` (com `contaDestinoId`, sem categoria). Efeito: despesa −v na conta; receita +v; transferência −v na origem e +v no destino. Transferências **não** contam como gastos nem receitas (totais, categorias, evolução), mas aparecem na lista do mês com ⇄.
+
+**Ecrãs**
+- Nova aba **Contas** (Mês · Contas · Evolução · Definições): total de todas as contas em destaque, lista das contas com saldo e cor/ícone por tipo, criar/editar/arquivar contas.
+- **Atualizar saldos**: uma folha com um campo por conta (pré-preenchido com o saldo calculado); ao guardar cria acertos só nas contas alteradas e mostra a diferença ("faltava registar −37,40 €").
+- **Formulário de movimento**: alternador Despesa · Receita · Transferência; escolha da conta (por defeito a última usada); na transferência, conta de origem e de destino.
+- **Evolução**: novo gráfico "Património" com o total das contas no fim de cada um dos últimos 12 meses (barras empilhadas por conta).
+- As estatísticas existentes continuam a somar todas as contas.
+
+**CSV** passa a `id;data;tipo;categoria;valor;nota;conta;contaDestino`, com linhas `acerto` (valor = saldo, pode ter sinal −) para que a cópia de segurança guarde os saldos. Continua a ler o formato antigo de 6 colunas.

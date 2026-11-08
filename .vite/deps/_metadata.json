@@ -1,0 +1,55 @@
+{
+  "hash": "fcbe79b1",
+  "configHash": "a8418666",
+  "lockfileHash": "47cbff38",
+  "browserHash": "1b93c900",
+  "optimized": {
+    "chart.js": {
+      "src": "../../node_modules/chart.js/dist/chart.js",
+      "file": "chart__js.js",
+      "fileHash": "add80805",
+      "needsInterop": false
+    },
+    "dexie": {
+      "src": "../../node_modules/dexie/import-wrapper.mjs",
+      "file": "dexie.js",
+      "fileHash": "5a05509d",
+      "needsInterop": false
+    },
+    "dexie-react-hooks": {
+      "src": "../../node_modules/dexie-react-hooks/dist/dexie-react-hooks.mjs",
+      "file": "dexie-react-hooks.js",
+      "fileHash": "7a82fda6",
+      "needsInterop": false
+    },
+    "preact": {
+      "src": "../../node_modules/preact/dist/preact.mjs",
+      "file": "preact.js",
+      "fileHash": "f80577d3",
+      "needsInterop": false
+    },
+    "preact/hooks": {
+      "src": "../../node_modules/preact/hooks/dist/hooks.mjs",
+      "file": "preact_hooks.js",
+      "fileHash": "81c60ef1",
+      "needsInterop": false
+    },
+    "preact/jsx-dev-runtime": {
+      "src": "../../node_modules/preact/jsx-runtime/dist/jsxRuntime.mjs",
+      "file": "preact_jsx-dev-runtime.js",
+      "fileHash": "5ae8dd47",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-XVBNAGYR": {
+      "file": "chunk-XVBNAGYR.js"
+    },
+    "chunk-RZBBS6KD": {
+      "file": "chunk-RZBBS6KD.js"
+    },
+    "chunk-EQCVQC35": {
+      "file": "chunk-EQCVQC35.js"
+    }
+  }
+}

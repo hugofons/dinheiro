@@ -22,7 +22,7 @@ export function Definicoes({ movimentos, categorias, contas, acertos }: Props) {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `dinheiro-${hojeISO()}.csv`;
+    a.download = `mealheiro-${hojeISO()}.csv`;
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     await gravarConfig('ultimaExportacao', Date.now());
@@ -91,7 +91,7 @@ export function Definicoes({ movimentos, categorias, contas, acertos }: Props) {
         {mensagem && <p class={mensagem.erro ? 'erro' : 'sucesso'} role="status">{mensagem.texto}</p>}
       </section>
 
-      <p class="versao">Dinheiro · versão {__VERSAO__}</p>
+      <p class="versao">Mealheiro · versão {__VERSAO__}</p>
 
       {edicao && (
         <div class="folha-fundo" onClick={(e) => e.target === e.currentTarget && setEdicao(null)}>

@@ -13,8 +13,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Dinheiro',
-        short_name: 'Dinheiro',
+        name: 'Mealheiro',
+        short_name: 'Mealheiro',
         description: 'Regista os teus gastos e vê para onde vai o dinheiro.',
         lang: 'pt-PT',
         display: 'standalone',

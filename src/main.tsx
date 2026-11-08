@@ -20,7 +20,7 @@ async function arrancar() {
   } catch {
     render(
       <div class="sem-armazenamento">
-        <h1>Dinheiro</h1>
+        <h1>Mealheiro</h1>
         <p>Esta app precisa de guardar dados no telemóvel, mas o navegador não deixou.</p>
         <p>Se estiveres num separador anónimo, abre-a num separador normal.</p>
       </div>,

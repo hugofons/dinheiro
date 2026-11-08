@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8" />
+<title>Mealheiro · vídeo promocional</title>
+<style>
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0b0205; }
+  body { font-family: 'Segoe UI Variable Display', 'Segoe UI', system-ui, sans-serif; color: #fff4f6; position: relative; }
+  .fundo { position: absolute; inset: 0; overflow: hidden; }
+  .bolha { position: absolute; border-radius: 50%; will-change: transform; }
+  .b1 { width: 1500px; height: 1500px; background: radial-gradient(circle, rgb(225 29 72 / .65), transparent 62%); left: 200px; top: -700px; }
+  .b2 { width: 1600px; height: 1600px; background: radial-gradient(circle, rgb(136 19 55 / .8), transparent 62%); left: -900px; top: 300px; }
+  .b3 { width: 1400px; height: 1400px; background: radial-gradient(circle, rgb(245 158 11 / .28), transparent 60%); left: 300px; top: 1100px; }
+  .b4 { width: 1100px; height: 1100px; background: radial-gradient(circle, rgb(190 24 93 / .45), transparent 60%); left: -200px; top: 1300px; }
+  .camada { position: absolute; inset: 0; }
+
+  .centro { position: absolute; left: 0; right: 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .icone { width: 360px; height: 360px; }
+  .titulo { font-size: 150px; font-weight: 700; letter-spacing: -4px; }
+  .tagline { font-size: 58px; color: rgb(255 228 234 / .8); font-weight: 400; }
+
+  .legenda { position: absolute; left: 70px; right: 70px; top: 120px; font-size: 76px; line-height: 1.08; font-weight: 700; letter-spacing: -1.5px; }
+  .legenda span { display: inline-block; }
+  .legenda em { font-style: normal; color: #ff8fa1; }
+
+  .telefone { position: absolute; left: 150px; top: 430px; width: 780px; height: 1640px; border-radius: 96px; padding: 16px;
+    background: linear-gradient(160deg, rgb(255 255 255 / .35), rgb(255 255 255 / .06) 40%, rgb(255 255 255 / .12));
+    box-shadow: 0 60px 140px rgb(0 0 0 / .65), 0 0 0 2px rgb(255 255 255 / .18) inset, 0 0 120px rgb(225 29 72 / .25); }
+  .ecra { position: relative; width: 100%; height: 100%; border-radius: 82px; overflow: hidden; background: #0b0205; }
+  .ecra img { position: absolute; left: 0; top: 0; width: 748px; }
+  .toque { position: absolute; width: 120px; height: 120px; border-radius: 50%; border: 6px solid rgb(255 255 255 / .9); box-shadow: 0 0 40px rgb(255 255 255 / .6); opacity: 0; }
+
+  .pilulas { position: absolute; left: 90px; right: 90px; top: 640px; display: flex; flex-direction: column; gap: 44px; }
+  .pilula { display: flex; align-items: center; gap: 36px; padding: 44px 52px; border-radius: 60px; font-size: 56px; font-weight: 600;
+    background: linear-gradient(145deg, rgb(255 255 255 / .16), rgb(255 255 255 / .03) 45%), rgb(255 255 255 / .06);
+    border: 2px solid rgb(255 255 255 / .16); box-shadow: inset 0 2px 0 rgb(255 255 255 / .35), 0 30px 60px rgb(0 0 0 / .35); }
+  .pilula svg { width: 84px; height: 84px; flex: none; }
+
+  .url { font-size: 54px; padding: 30px 56px; border-radius: 60px; margin-top: 70px;
+    background: linear-gradient(160deg, #ff6f86, #d6304f 60%, #9f1239); box-shadow: inset 0 2px 0 rgb(255 255 255 / .6), 0 24px 60px rgb(225 29 72 / .5); font-weight: 600; }
+  .dica { font-size: 44px; color: rgb(255 228 234 / .7); margin-top: 36px; }
+</style>
+</head>
+<body>
+  <div class="fundo"><div class="camada" id="camada">
+    <div class="bolha b1" id="b1"></div><div class="bolha b2" id="b2"></div><div class="bolha b3" id="b3"></div><div class="bolha b4" id="b4"></div>
+  </div></div>
+
+  <!-- Cena 1 e final: ícone + nome -->
+  <div class="centro" id="abertura" style="top: 520px">
+    <svg class="icone" id="icone" viewBox="0 0 96 96">
+      <defs><clipPath id="arred"><rect width="96" height="96" rx="22" /></clipPath></defs>
+      <g clip-path="url(#arred)">
+        <rect width="96" height="96" fill="#2a0610" />
+        <g id="porco">
+          <rect x="32" y="66" width="7" height="12" rx="3" fill="#e11d48" /><rect x="55" y="66" width="7" height="12" rx="3" fill="#e11d48" />
+          <polygon points="31,40 36,30 41,40" fill="#fb7185" />
+          <ellipse cx="48" cy="54" rx="26" ry="19" fill="#fb7185" />
+          <circle cx="70" cy="52" r="7" fill="#fda4af" /><circle cx="68" cy="52" r="1.3" fill="#9f1239" /><circle cx="72" cy="52" r="1.3" fill="#9f1239" />
+          <circle cx="59" cy="46" r="2.1" fill="#3b0610" />
+          <rect x="40" y="36" width="16" height="4" rx="2" fill="#9f1239" />
+        </g>
+        <g id="moeda"><circle cx="48" cy="22" r="8" fill="#f5b14c" /><circle cx="48" cy="22" r="5" fill="none" stroke="#fde68a" stroke-width="1" /></g>
+      </g>
+    </svg>
+    <h1 class="titulo" id="titulo" style="margin-top: 60px">Mealheiro</h1>
+    <p class="tagline" id="tagline" style="margin-top: 10px">O teu dinheiro, num relance.</p>
+    <p class="url" id="url">hugofons.github.io/dinheiro</p>
+    <p class="dica" id="dica">Abre no Chrome e escolhe “Instalar app”</p>
+  </div>
+
+  <h2 class="legenda" id="legenda"></h2>
+
+  <div class="telefone" id="telefone">
+    <div class="ecra">
+      <img id="i-mes" src="saida/mes.png" />
+      <img id="i-novo" src="saida/novo.png" />
+      <img id="i-contas" src="saida/contas.png" />
+      <img id="i-evolucao" src="saida/evolucao.png" />
+      <div class="toque" id="toque"></div>
+    </div>
+  </div>
+
+  <div class="pilulas" id="pilulas">
+    <div class="pilula"><svg viewBox="0 0 24 24" fill="none" stroke="#6fd6bd" stroke-width="2" stroke-linecap="round"><path d="M2 8.5a15 15 0 0 1 20 0M5 12a10 10 0 0 1 14 0M8.5 15.5a5 5 0 0 1 7 0M12 19h0M3 3l18 18" /></svg>Funciona sem internet</div>
+    <div class="pilula"><svg viewBox="0 0 24 24" fill="none" stroke="#f3c56b" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>Os dados ficam só no teu telemóvel</div>
+    <div class="pilula"><svg viewBox="0 0 24 24" fill="none" stroke="#ff8fa1" stroke-width="2" stroke-linecap="round"><path d="M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" /></svg>Grátis e sem anúncios</div>
+  </div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const lim = (x) => Math.min(1, Math.max(0, x));
+  const prog = (t, a, b) => lim((t - a) / (b - a));
+  const suave = (p) => 1 - Math.pow(1 - p, 3);
+  const mola = (p) => { const c1 = 1.5, c3 = c1 + 1; return p === 0 ? 0 : 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+  const entra = (t, a, d = 0.6) => suave(prog(t, a, a + d));
+  const janela = (t, a, b, d = 0.35) => Math.min(entra(t, a, d), 1 - entra(t, b - d, d)); // 0→1→0
+
+  // Legendas por cena (as palavras entram uma a uma)
+  const LEGENDAS = [
+    [3.3, 7.5, 'Vê para onde vai <em>o teu dinheiro</em>'],
+    [7.7, 11.7, 'Regista um gasto <em>em segundos</em>'],
+    [11.9, 15.9, 'Todas as tuas contas, <em>num só sítio</em>'],
+    [16.1, 20.0, 'Vê o teu património <em>a crescer</em>'],
+    [20.2, 22.6, 'Simples. Privada. <em>Tua.</em>'],
+  ];
+  let legendaAtual = -1;
+
+  const ECRAS = [['i-mes', 3.2, 7.7], ['i-novo', 7.6, 11.9], ['i-contas', 11.8, 16.1], ['i-evolucao', 16.0, 20.3]];
+
+  window.render = function (t) {
+    // Fundo vivo
+    $('b1').style.transform = `translate(${Math.sin(t * 0.35) * 160}px, ${Math.cos(t * 0.27) * 120}px) scale(${1 + Math.sin(t * 0.3) * 0.08})`;
+    $('b2').style.transform = `translate(${Math.cos(t * 0.22) * 200}px, ${Math.sin(t * 0.31) * 140}px)`;
+    $('b3').style.transform = `translate(${Math.sin(t * 0.25 + 1) * 180}px, ${Math.cos(t * 0.2) * 160}px) scale(${1 + Math.cos(t * 0.4) * 0.1})`;
+    $('b4').style.transform = `translate(${Math.cos(t * 0.3 + 2) * 140}px, ${Math.sin(t * 0.26) * 120}px)`;
+
+    // Abertura (0–3.2) e fecho (22.4–25)
+    const fim = t >= 22.2;
+    const pIcone = fim ? mola(prog(t, 22.4, 23.1)) : mola(prog(t, 0.25, 1.0));
+    const saidaAbertura = fim ? 0 : entra(t, 2.75, 0.45);
+    $('abertura').style.top = fim ? '400px' : '520px';
+    $('abertura').style.opacity = String(1 - saidaAbertura);
+    $('abertura').style.transform = `translateY(${-saidaAbertura * 120}px)`;
+    $('icone').style.transform = `scale(${pIcone}) rotate(${(1 - pIcone) * -12}deg)`;
+    // moeda cai na ranhura e o porco salta
+    const tm = fim ? t - 22.4 : t;
+    const queda = suave(prog(tm, 0.9, 1.45));
+    $('moeda').style.transform = `translate(0px, ${queda * 16}px)`;
+    $('moeda').style.opacity = String(1 - prog(tm, 1.38, 1.5));
+    const salto = Math.sin(prog(tm, 1.45, 1.85) * Math.PI) * 3;
+    $('porco').style.transform = `translate(0px, ${-salto}px)`;
+    const pTit = fim ? entra(t, 22.9, 0.6) : entra(t, 1.3, 0.6);
+    $('titulo').style.opacity = String(pTit);
+    $('titulo').style.transform = `translateY(${(1 - pTit) * 50}px)`;
+    const pTag = fim ? entra(t, 23.2, 0.6) : entra(t, 1.75, 0.6);
+    $('tagline').style.opacity = String(pTag);
+    $('tagline').style.transform = `translateY(${(1 - pTag) * 40}px)`;
+    const pUrl = fim ? mola(prog(t, 23.6, 24.2)) : 0;
+    $('url').style.opacity = String(Math.min(1, pUrl));
+    $('url').style.transform = `scale(${0.6 + 0.4 * pUrl})`;
+    const pDica = fim ? entra(t, 24.0, 0.5) : 0;
+    $('dica').style.opacity = String(pDica);
+
+    // Telefone (3.2–20.4)
+    const pTel = mola(prog(t, 3.2, 4.0));
+    const saidaTel = entra(t, 20.0, 0.6);
+    $('telefone').style.opacity = String(t < 3.2 ? 0 : 1 - saidaTel);
+    $('telefone').style.transform = `translateY(${(1 - pTel) * 1300 + saidaTel * 400}px) rotate(${(1 - pTel) * 6}deg) scale(${1 - saidaTel * 0.15})`;
+    for (const [id, a, b] of ECRAS) {
+      const o = a === 3.2 ? Math.min(1, 1 - entra(t, b - 0.35, 0.35)) : janela(t, a, b);
+      $(id).style.opacity = String(o);
+      $(id).style.transform = `scale(${1.04 - 0.04 * entra(t, a, 0.6)})`;
+    }
+    // deslizar o ecrã do mês e da evolução para mostrar mais
+    $('i-mes').style.top = `${-suave(prog(t, 4.6, 7.0)) * 140}px`;
+    $('i-evolucao').style.top = `${-suave(prog(t, 17.4, 19.6)) * 140}px`;
+    // toque no chip "Restaurantes" (ecrã novo) e no total (contas)
+    const toques = [[9.6, 400, 1080], [13.0, 374, 472]];
+    let tq = null;
+    for (const [a, x, y] of toques) if (t >= a && t < a + 0.8) tq = [a, x, y];
+    if (tq) {
+      const p = prog(t, tq[0], tq[0] + 0.8);
+      $('toque').style.left = `${tq[1] - 60}px`; $('toque').style.top = `${tq[2] - 60}px`;
+      $('toque').style.opacity = String(Math.sin(p * Math.PI));
+      $('toque').style.transform = `scale(${0.6 + p * 0.8})`;
+    } else $('toque').style.opacity = '0';
+
+    // Legendas
+    const idx = LEGENDAS.findIndex(([a, b]) => t >= a && t < b);
+    if (idx !== legendaAtual) {
+      legendaAtual = idx;
+      $('legenda').innerHTML = idx < 0 ? '' : LEGENDAS[idx][2].replace(/(<em>.*?<\/em>|[^\s<]+)/g, '<span>$1</span>');
+    }
+    if (idx >= 0) {
+      const [a, b] = LEGENDAS[idx];
+      [...$('legenda').children].forEach((s, i) => {
+        const p = entra(t, a + 0.15 + i * 0.07, 0.5);
+        const o = 1 - entra(t, b - 0.3, 0.3);
+        s.style.opacity = String(Math.min(p, o));
+        s.style.transform = `translateY(${(1 - p) * 40}px)`;
+        s.style.filter = `blur(${(1 - p) * 8}px)`;
+      });
+    }
+    $('legenda').style.top = idx === 4 ? '360px' : '120px';
+
+    // Pílulas (20.2–22.6)
+    [...$('pilulas').children].forEach((el, i) => {
+      const p = mola(prog(t, 20.5 + i * 0.25, 21.2 + i * 0.25));
+      const o = 1 - entra(t, 22.2, 0.35);
+      el.style.opacity = String(Math.min(Math.max(p, 0), 1) * o);
+      el.style.transform = `translateX(${(1 - p) * 300}px)`;
+    });
+  };
+  window.render(0);
+</script>
+</body>
+</html>

@@ -4,9 +4,12 @@ import { db, garantirCategoriasIniciais } from './dados/db';
 import './estilo.css';
 import './temas.css';
 
-// Pré-visualização de temas: ?tema=aurora|noite|papel|grafite
+import { ligarInteracao } from './interacao';
+
+// Tema Rubi (liquid glass escuro). ?tema=base mostra o estilo base, sem tema.
 const temaPedido = new URLSearchParams(location.search).get('tema');
-if (temaPedido) document.documentElement.dataset.tema = temaPedido;
+document.documentElement.dataset.tema = temaPedido ?? 'rubi';
+ligarInteracao();
 
 const raiz = document.getElementById('app')!;
 

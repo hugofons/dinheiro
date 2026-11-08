@@ -16,7 +16,7 @@ const bloco = (tipo, dados) => {
 };
 
 function png(tam, { arredondado, margem }) {
-  const fundo = [15, 118, 110];
+  const fundo = [159, 18, 57];
   const raw = Buffer.alloc((tam * 4 + 1) * tam);
   const r = tam * 0.22;
   // barras: (x0, altura) em fração da área útil

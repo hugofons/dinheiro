@@ -1,260 +1,264 @@
-/* Temas alternativos. Ativam-se com data-tema no <html> (ou num contentor, para pré-visualização). */
-
-.app { background: var(--fundo-img, var(--fundo)); background-attachment: fixed; }
-
-/* ---------- Aurora: vidro claro sobre gradiente pastel ---------- */
-[data-tema='aurora'] {
-  --fundo: #eef0fb;
-  --superficie: rgb(255 255 255 / 0.55);
-  --texto: #1e1b4b;
-  --texto-2: #5b5a7a;
-  --linha: rgb(30 27 75 / 0.09);
-  --primaria: #4f46e5;
-  --primaria-texto: #ffffff;
-  --gasto: #e11d48;
-  --receita: #059669;
-  --perigo: #e11d48;
-  --aviso-fundo: rgb(255 255 255 / 0.55);
-  --aviso-texto: #92400e;
-  --sombra: 0 8px 32px rgb(31 38 135 / 0.10);
-  --vidro: blur(20px) saturate(160%);
-  --borda-vidro: 1px solid rgb(255 255 255 / 0.75);
-  --fundo-img:
-    radial-gradient(circle at 12% 8%, #c7d2fe 0, transparent 42%),
-    radial-gradient(circle at 92% 22%, #fbcfe8 0, transparent 40%),
-    radial-gradient(circle at 30% 70%, #bae6fd 0, transparent 40%),
-    radial-gradient(circle at 85% 92%, #a7f3d0 0, transparent 45%),
-    linear-gradient(160deg, #eef2ff, #fdf2f8);
-  color-scheme: light;
-}
-[data-tema='aurora'] .total-gastos {
-  background: linear-gradient(135deg, rgb(79 70 229 / 0.88), rgb(168 85 247 / 0.82));
-  color: #fff;
-}
-
-/* ---------- Noite: vidro escuro sobre luzes difusas ---------- */
-[data-tema='noite'] {
-  --fundo: #070a17;
-  --superficie: rgb(255 255 255 / 0.07);
-  --texto: #eef1ff;
-  --texto-2: #9aa3c7;
-  --linha: rgb(255 255 255 / 0.09);
-  --primaria: #7dd3fc;
-  --primaria-texto: #04121f;
-  --gasto: #fb7185;
-  --receita: #34d399;
-  --perigo: #fb7185;
-  --aviso-fundo: rgb(251 191 36 / 0.12);
-  --aviso-texto: #fcd34d;
-  --sombra: 0 8px 32px rgb(0 0 0 / 0.35);
-  --vidro: blur(22px) saturate(150%);
-  --borda-vidro: 1px solid rgb(255 255 255 / 0.13);
-  --fundo-img:
-    radial-gradient(circle at 18% 2%, rgb(124 58 237 / 0.6) 0, transparent 45%),
-    radial-gradient(circle at 100% 38%, rgb(14 165 233 / 0.45) 0, transparent 42%),
-    radial-gradient(circle at 0% 95%, rgb(16 185 129 / 0.38) 0, transparent 45%),
-    #070a17;
-  color-scheme: dark;
-}
-[data-tema='noite'] .total-gastos {
-  background: linear-gradient(135deg, rgb(125 211 252 / 0.22), rgb(167 139 250 / 0.22));
-  color: #fff;
-}
-[data-tema='noite'] .fab { box-shadow: 0 8px 28px rgb(125 211 252 / 0.35); }
-
-/* Regras comuns aos temas de vidro */
-:is([data-tema='aurora'], [data-tema='noite']) :is(.total, .cartao, .aviso, .barra, .folha, .chip, .campo input, .campo select, .alternador) {
-  backdrop-filter: var(--vidro);
-  -webkit-backdrop-filter: var(--vidro);
-  border: var(--borda-vidro);
-}
-:is([data-tema='aurora'], [data-tema='noite']) .barra { border-width: 1px 0 0; margin: 0; }
-:is([data-tema='aurora'], [data-tema='noite']) .folha { border-width: 1px 0 0; }
-:is([data-tema='aurora'], [data-tema='noite']) .folha-fundo { background: rgb(0 0 0 / 0.2); backdrop-filter: blur(3px); }
-:is([data-tema='aurora'], [data-tema='noite']) .alternador button.ativo { background: var(--superficie); }
-:is([data-tema='aurora'], [data-tema='noite']) .barra-fundo { background: rgb(127 127 160 / 0.15); }
-:is([data-tema='aurora'], [data-tema='noite']) .valor-entrada input { background: transparent; border: 0; backdrop-filter: none; }
-
-/* ---------- Papel: tons quentes, números com serifa ---------- */
-[data-tema='papel'] {
-  --fundo: #f5efe6;
-  --superficie: #fffcf7;
-  --texto: #2a241d;
-  --texto-2: #7a6f62;
-  --linha: #e8dfd2;
-  --primaria: #b4532a;
-  --primaria-texto: #ffffff;
-  --gasto: #b4532a;
-  --receita: #4d7c0f;
-  --perigo: #b42318;
-  --aviso-fundo: #f3e3c3;
-  --aviso-texto: #6b4e16;
-  --sombra: none;
-  --raio: 10px;
-  color-scheme: light;
-}
-[data-tema='papel'] :is(.total, .cartao) { border: 1px solid var(--linha); }
-[data-tema='papel'] .total-gastos { background: #2a241d; color: #f5efe6; border-color: #2a241d; }
-[data-tema='papel'] :is(.total strong, .cabecalho-mes h1, .cabecalho-simples h1, .valor-entrada input) {
-  font-family: Georgia, 'Noto Serif', 'Times New Roman', serif;
-  font-weight: 600;
-}
-[data-tema='papel'] .fab { border-radius: 50%; }
-
-/* ---------- Grafite: preto puro com acento lima ---------- */
-[data-tema='grafite'] {
-  --fundo: #0a0a0a;
-  --superficie: #161616;
-  --texto: #fafafa;
-  --texto-2: #8a8a8a;
-  --linha: #262626;
-  --primaria: #d4ff3f;
-  --primaria-texto: #0a0a0a;
-  --gasto: #ff6b4a;
-  --receita: #d4ff3f;
-  --perigo: #ff6b4a;
-  --aviso-fundo: #1d2208;
-  --aviso-texto: #e5ff8a;
-  --sombra: none;
-  --raio: 22px;
-  color-scheme: dark;
-}
-[data-tema='grafite'] .total strong { font-weight: 750; letter-spacing: -0.02em; }
-[data-tema='grafite'] .total-gastos strong { font-size: 2.5rem; }
-[data-tema='grafite'] .barra { background: #0a0a0a; }
-
 /* =====================================================================
-   Liquid glass escuro: data-tema="vidro-<gradiente>"
-   Vidro muito translúcido, reflexo especular no topo, barra flutuante em cápsula.
+   Tema Rubi — liquid glass escuro.
+   Ativo com data-tema="rubi" no <html> (definido em main.tsx).
    ===================================================================== */
-[data-tema^='vidro'] {
-  --fundo: #05060c;
+
+[data-tema='rubi'] {
+  --fundo: #0b0205;
   --superficie: rgb(255 255 255 / 0.06);
-  --texto: #f4f6ff;
-  --texto-2: rgb(235 240 255 / 0.62);
+  --texto: #fff4f6;
+  --texto-2: rgb(255 228 234 / 0.62);
   --linha: rgb(255 255 255 / 0.09);
-  --gasto: #ff8a9a;
-  --receita: #5eead4;
+  --primaria: #ff6f86;
+  --secundaria: #f5b14c;
+  --primaria-texto: #3b0610;
+  --gasto: #ff7a8c;
+  --receita: #6fd6bd;
   --perigo: #ff8a9a;
-  --aviso-fundo: rgb(255 200 80 / 0.10);
-  --aviso-texto: #ffd98a;
+  --aviso-fundo: rgb(245 177 76 / 0.12);
+  --aviso-texto: #ffd99a;
   --sombra: none;
   --raio: 26px;
-  --lg-borda: rgb(255 255 255 / 0.16);
+
+  --lg-borda: rgb(255 255 255 / 0.15);
   --lg-reflexo: linear-gradient(145deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.02) 38%, transparent 62%, rgb(255 255 255 / 0.05));
   --lg-brilho: inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -1px 0 rgb(255 255 255 / 0.06), inset 1px 0 0 rgb(255 255 255 / 0.07), inset -1px 0 0 rgb(255 255 255 / 0.04);
-  --lg-sombra: 0 14px 34px rgb(0 0 0 / 0.38);
+  --lg-sombra: 0 14px 34px rgb(0 0 0 / 0.4);
   --lg-desfoque: blur(28px) saturate(190%) brightness(1.06);
+  --mola: cubic-bezier(0.34, 1.45, 0.5, 1);
+  --suave: cubic-bezier(0.2, 0.8, 0.2, 1);
   color-scheme: dark;
 }
 
-[data-tema^='vidro'] :is(.total, .cartao, .aviso, .barra, .folha, .chip, .campo input, .campo select, .alternador, .icone-btn, .btn-secundario) {
+/* ---------- Fundo dinâmico ---------- */
+[data-tema='rubi'] body { background: var(--fundo); }
+[data-tema='rubi'] .app { position: relative; isolation: isolate; background: var(--fundo); }
+
+.fundo-vivo { display: none; }
+[data-tema='rubi'] .fundo-vivo {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+[data-tema='rubi'] .fundo-vivo .camada {
+  position: absolute;
+  inset: -15%;
+  transform: translate3d(calc(var(--incl-x, 0) * -26px), calc(var(--incl-y, 0) * -26px), 0);
+  transition: transform 1.2s var(--suave);
+}
+[data-tema='rubi'] .bolha {
+  position: absolute;
+  width: 80vmax;
+  height: 80vmax;
+  border-radius: 50%;
+  will-change: transform;
+  animation: deriva 26s ease-in-out infinite alternate;
+}
+[data-tema='rubi'] .bolha.b1 { background: radial-gradient(circle, rgb(225 29 72 / 0.62), transparent 62%); top: -35vmax; right: -30vmax; }
+[data-tema='rubi'] .bolha.b2 { background: radial-gradient(circle, rgb(136 19 55 / 0.75), transparent 62%); top: 15vmax; left: -42vmax; animation-duration: 32s; animation-delay: -8s; }
+[data-tema='rubi'] .bolha.b3 { background: radial-gradient(circle, rgb(245 158 11 / 0.30), transparent 60%); bottom: -45vmax; right: -25vmax; animation-duration: 38s; animation-delay: -16s; }
+[data-tema='rubi'] .bolha.b4 { background: radial-gradient(circle, rgb(190 24 93 / 0.40), transparent 60%); bottom: -20vmax; left: -10vmax; width: 60vmax; height: 60vmax; animation-duration: 29s; animation-delay: -4s; }
+/* Luz que segue o dedo */
+[data-tema='rubi'] .luz-dedo {
+  position: absolute;
+  width: 60vmax;
+  height: 60vmax;
+  left: calc(var(--dedo-x, 50vw) - 30vmax);
+  top: calc(var(--dedo-y, 30vh) - 30vmax);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(255 111 134 / 0.18), transparent 60%);
+  transition: left 0.9s var(--suave), top 0.9s var(--suave), opacity 0.6s;
+  opacity: var(--dedo-o, 0);
+}
+@keyframes deriva {
+  0% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
+  50% { transform: translate3d(8vmax, 6vmax, 0) scale(1.12) rotate(25deg); }
+  100% { transform: translate3d(-6vmax, 10vmax, 0) scale(0.92) rotate(-15deg); }
+}
+
+/* ---------- Vidro ---------- */
+[data-tema='rubi'] :is(.total, .cartao, .aviso, .barra, .folha, .chip, .campo input, .campo select, .alternador, .icone-btn, .btn-secundario) {
   background: var(--lg-reflexo), var(--superficie);
   backdrop-filter: var(--lg-desfoque);
   -webkit-backdrop-filter: var(--lg-desfoque);
   border: 1px solid var(--lg-borda);
   box-shadow: var(--lg-brilho), var(--lg-sombra);
 }
-[data-tema^='vidro'] :is(.chip, .campo input, .campo select, .alternador, .btn-secundario) { box-shadow: var(--lg-brilho); }
+[data-tema='rubi'] :is(.chip, .campo input, .campo select, .alternador, .btn-secundario) { box-shadow: var(--lg-brilho); }
 
-/* Cabeçalho: botões redondos de vidro */
-[data-tema^='vidro'] .icone-btn { width: 42px; height: 42px; }
-[data-tema^='vidro'] .icone-btn:disabled { opacity: 0.3; }
-[data-tema^='vidro'] .folha-cabecalho .icone-btn { box-shadow: var(--lg-brilho); }
+/* Reflexo especular que segue o dedo dentro de cada peça de vidro */
+[data-tema='rubi'] :is(.total, .cartao, .icone-btn, .chip, .btn-secundario, .movimento, .linha-cat-btn) {
+  position: relative;
+}
+[data-tema='rubi'] :is(.total, .cartao, .icone-btn, .chip, .btn-secundario, .fab, .btn-principal)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(160px circle at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / 0.22), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+[data-tema='rubi'] :is(.total, .cartao, .icone-btn, .chip, .btn-secundario, .fab, .btn-principal).tocado::after { opacity: 1; }
 
-/* Total de gastos: vidro tingido com as cores do gradiente */
-[data-tema^='vidro'] .total-gastos {
+/* ---------- Cabeçalho ---------- */
+[data-tema='rubi'] .icone-btn { width: 42px; height: 42px; overflow: hidden; }
+[data-tema='rubi'] .icone-btn:disabled { opacity: 0.3; }
+[data-tema='rubi'] .folha-cabecalho .icone-btn { box-shadow: var(--lg-brilho); }
+[data-tema='rubi'] .cabecalho-mes h1 { animation: entrar-titulo 0.45s var(--suave); }
+@keyframes entrar-titulo { from { opacity: 0; transform: translateY(6px); filter: blur(4px); } }
+
+/* ---------- Totais ---------- */
+[data-tema='rubi'] .total-gastos {
   background:
     var(--lg-reflexo),
-    linear-gradient(135deg, color-mix(in srgb, var(--primaria) 42%, transparent), color-mix(in srgb, var(--secundaria) 30%, transparent));
+    linear-gradient(135deg, rgb(255 111 134 / 0.42), rgb(136 19 55 / 0.38) 55%, rgb(245 177 76 / 0.22));
   color: #fff;
 }
-[data-tema^='vidro'] .total-gastos strong { font-size: 2.4rem; letter-spacing: -0.02em; }
-[data-tema^='vidro'] .barra-fundo { background: rgb(255 255 255 / 0.08); }
+[data-tema='rubi'] .total-gastos strong { font-size: 2.4rem; letter-spacing: -0.02em; }
+[data-tema='rubi'] .positivo { color: var(--receita); }
 
-/* Botão + e botão principal: gota de vidro colorida */
-[data-tema^='vidro'] :is(.fab, .btn-principal) {
+/* ---------- Categorias: barras e pontos com brilho de joia ---------- */
+[data-tema='rubi'] .barra-fundo { background: rgb(255 255 255 / 0.07); height: 8px; }
+[data-tema='rubi'] .barra-cheia {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--cor) 45%, transparent), var(--cor));
+  box-shadow: 0 0 12px color-mix(in srgb, var(--cor) 55%, transparent);
+  transform-origin: left;
+  animation: crescer 0.9s var(--suave) both;
+}
+@keyframes crescer { from { transform: scaleX(0); } }
+[data-tema='rubi'] .bolinha {
+  background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--cor) 40%, white), var(--cor) 70%) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cor) 18%, transparent), 0 0 10px color-mix(in srgb, var(--cor) 60%, transparent);
+}
+
+/* ---------- Botão + e botão principal: gota de vidro colorida ---------- */
+[data-tema='rubi'] :is(.fab, .btn-principal) {
+  overflow: hidden;
   background:
-    linear-gradient(160deg, rgb(255 255 255 / 0.45), rgb(255 255 255 / 0) 45%),
-    linear-gradient(160deg, var(--primaria), var(--secundaria));
-  color: var(--primaria-texto);
-  border: 1px solid rgb(255 255 255 / 0.35);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6), inset 0 -2px 6px rgb(0 0 0 / 0.18), 0 10px 30px color-mix(in srgb, var(--primaria) 45%, transparent);
-}
-[data-tema^='vidro'] .fab { border-radius: 50%; bottom: calc(env(safe-area-inset-bottom) + 96px); }
-
-/* Barra de separadores flutuante em cápsula */
-[data-tema^='vidro'] .barra {
-  left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom) + 14px);
-  max-width: 528px; margin: 0 auto; padding: 5px; border-radius: 34px; gap: 4px;
-}
-[data-tema^='vidro'] .barra button { height: 56px; border-radius: 28px; }
-[data-tema^='vidro'] .barra button.ativo {
+    linear-gradient(160deg, rgb(255 255 255 / 0.5), rgb(255 255 255 / 0) 45%),
+    linear-gradient(160deg, var(--primaria), #d6304f 60%, #9f1239);
   color: #fff;
-  background: var(--lg-reflexo), rgb(255 255 255 / 0.12);
-  box-shadow: var(--lg-brilho);
+  border: 1px solid rgb(255 255 255 / 0.35);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6), inset 0 -2px 6px rgb(0 0 0 / 0.2), 0 10px 30px rgb(225 29 72 / 0.45);
+}
+[data-tema='rubi'] .fab { border-radius: 50%; bottom: calc(env(safe-area-inset-bottom) + 96px); animation: respirar 4s ease-in-out infinite; }
+@keyframes respirar {
+  50% { box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6), inset 0 -2px 6px rgb(0 0 0 / 0.2), 0 12px 40px rgb(225 29 72 / 0.7); }
+}
+/* Faixa de luz que atravessa o botão de vez em quando */
+[data-tema='rubi'] .fab::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(115deg, transparent 40%, rgb(255 255 255 / 0.45) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: varrer 5s var(--suave) infinite;
+  pointer-events: none;
+}
+@keyframes varrer { 0%, 70% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+[data-tema='rubi'] .fab .icone { transition: transform 0.5s var(--mola); }
+[data-tema='rubi'] .fab.aberto .icone { transform: rotate(135deg); }
+
+/* ---------- Barra de separadores flutuante com indicador deslizante ---------- */
+[data-tema='rubi'] .barra {
+  left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom) + 14px);
+  max-width: 528px; margin: 0 auto; padding: 5px; border-radius: 34px;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+}
+[data-tema='rubi'] .barra button { height: 56px; border-radius: 28px; max-width: none; position: relative; z-index: 1; transition: color 0.3s; }
+[data-tema='rubi'] .barra button.ativo { color: #fff; }
+[data-tema='rubi'] .barra button.ativo .icone { animation: saltar 0.5s var(--mola); }
+@keyframes saltar { 0% { transform: scale(1); } 40% { transform: scale(0.8) translateY(2px); } 100% { transform: scale(1); } }
+.indicador { display: none; }
+[data-tema='rubi'] .indicador {
+  display: block;
+  position: absolute;
+  top: 5px; bottom: 5px; left: 5px;
+  width: calc((100% - 10px) / 3);
+  border-radius: 28px;
+  background: var(--lg-reflexo), rgb(255 255 255 / 0.13);
+  box-shadow: var(--lg-brilho), 0 0 24px rgb(255 111 134 / 0.25);
+  transform: translateX(calc(var(--i) * 100%));
+  transition: transform 0.55s var(--mola);
 }
 
-/* Folhas (formulários) */
-[data-tema^='vidro'] .folha-fundo { background: rgb(0 0 0 / 0.35); }
-[data-tema^='vidro'] .folha {
-  --superficie: rgb(20 22 34 / 0.55);
+/* ---------- Folhas (formulários) ---------- */
+[data-tema='rubi'] .folha-fundo { background: rgb(0 0 0 / 0.35); }
+[data-tema='rubi'] .folha {
+  --superficie: rgb(30 8 14 / 0.55);
   border-radius: 32px 32px 0 0; border-width: 1px 0 0;
+  animation: subir-mola 0.5s var(--mola);
 }
-[data-tema^='vidro'] .alternador button.ativo { background: var(--lg-reflexo), rgb(255 255 255 / 0.14); box-shadow: var(--lg-brilho); }
-[data-tema^='vidro'] .alternador button.ativo.despesa { color: var(--gasto); }
-[data-tema^='vidro'] .valor-entrada { border-bottom-color: color-mix(in srgb, var(--primaria) 70%, transparent); }
-[data-tema^='vidro'] .valor-entrada input { background: transparent; border: 0; box-shadow: none; backdrop-filter: none; }
-[data-tema^='vidro'] .chip.ativo { background: var(--lg-reflexo), color-mix(in srgb, var(--cor) 32%, transparent); border-color: color-mix(in srgb, var(--cor) 70%, white); }
-[data-tema^='vidro'] .btn-apagar { color: var(--perigo); }
+@keyframes subir-mola { from { transform: translateY(100%); } }
+[data-tema='rubi'] .folha-fundo.saindo { animation: desaparecer 0.22s ease-in forwards; }
+[data-tema='rubi'] .folha-fundo.saindo .folha { animation: descer 0.22s ease-in forwards; }
+@keyframes desaparecer { to { opacity: 0; } }
+@keyframes descer { to { transform: translateY(100%); } }
 
-/* ---------- Gradientes ---------- */
-[data-tema='vidro-aurora'] {
-  --primaria: #7dd3fc; --secundaria: #a78bfa; --primaria-texto: #04121f;
-  --fundo-img:
-    radial-gradient(60% 45% at 10% 0%, rgb(124 58 237 / 0.75), transparent 70%),
-    radial-gradient(55% 40% at 100% 35%, rgb(14 165 233 / 0.6), transparent 70%),
-    radial-gradient(65% 45% at 0% 100%, rgb(16 185 129 / 0.5), transparent 70%),
-    #070a17;
+/* Alternador Despesa/Receita com pastilha deslizante */
+[data-tema='rubi'] .alternador { position: relative; }
+[data-tema='rubi'] .alternador::before {
+  content: '';
+  position: absolute;
+  top: 4px; bottom: 4px; left: 4px;
+  width: calc(50% - 4px);
+  border-radius: 9px;
+  background: var(--lg-reflexo), rgb(255 255 255 / 0.14);
+  box-shadow: var(--lg-brilho);
+  transition: transform 0.5s var(--mola);
 }
-[data-tema='vidro-oceano'] {
-  --primaria: #22d3ee; --secundaria: #3b82f6; --primaria-texto: #022c33;
-  --fundo-img:
-    radial-gradient(60% 45% at 0% 5%, rgb(14 165 233 / 0.7), transparent 70%),
-    radial-gradient(50% 40% at 100% 45%, rgb(20 184 166 / 0.55), transparent 70%),
-    radial-gradient(70% 50% at 30% 100%, rgb(30 64 175 / 0.8), transparent 70%),
-    #020617;
+[data-tema='rubi'] .alternador[data-lado='receita']::before { transform: translateX(100%); }
+[data-tema='rubi'] .alternador button { position: relative; z-index: 1; transition: color 0.3s; }
+[data-tema='rubi'] .alternador button.ativo { background: none; box-shadow: none; }
+[data-tema='rubi'] .alternador button.ativo.despesa { color: var(--gasto); }
+[data-tema='rubi'] .alternador button.ativo.receita { color: var(--receita); }
+
+[data-tema='rubi'] .valor-entrada { border-bottom-color: color-mix(in srgb, var(--primaria) 70%, transparent); }
+[data-tema='rubi'] .valor-entrada input { background: transparent; border: 0; box-shadow: none; backdrop-filter: none; }
+[data-tema='rubi'] .chip { transition: transform 0.35s var(--mola), background 0.3s, border-color 0.3s, box-shadow 0.3s; }
+[data-tema='rubi'] .chip.ativo {
+  background: var(--lg-reflexo), color-mix(in srgb, var(--cor) 30%, transparent);
+  border-color: color-mix(in srgb, var(--cor) 75%, white);
+  box-shadow: var(--lg-brilho), 0 0 18px color-mix(in srgb, var(--cor) 40%, transparent);
+  animation: estalar 0.45s var(--mola);
 }
-[data-tema='vidro-por-do-sol'] {
-  --primaria: #fb923c; --secundaria: #f472b6; --primaria-texto: #2a0a00;
-  --fundo-img:
-    radial-gradient(60% 45% at 100% 0%, rgb(249 115 22 / 0.65), transparent 70%),
-    radial-gradient(55% 45% at 0% 40%, rgb(219 39 119 / 0.6), transparent 70%),
-    radial-gradient(70% 50% at 70% 100%, rgb(124 58 237 / 0.6), transparent 70%),
-    #12060f;
+@keyframes estalar { 40% { transform: scale(1.08); } }
+[data-tema='rubi'] .chip::before { box-shadow: 0 0 8px var(--cor); }
+[data-tema='rubi'] .btn-apagar { color: var(--perigo); }
+
+/* ---------- Toque: todos os botões encolhem com mola ---------- */
+[data-tema='rubi'] :is(button, .movimento) {
+  transition: transform 0.45s var(--mola), background 0.25s, color 0.25s, opacity 0.25s;
 }
-[data-tema='vidro-floresta'] {
-  --primaria: #4ade80; --secundaria: #2dd4bf; --primaria-texto: #052e16;
-  --fundo-img:
-    radial-gradient(60% 45% at 0% 0%, rgb(16 185 129 / 0.6), transparent 70%),
-    radial-gradient(50% 40% at 100% 40%, rgb(132 204 22 / 0.4), transparent 70%),
-    radial-gradient(70% 50% at 20% 100%, rgb(15 118 110 / 0.7), transparent 70%),
-    #03100b;
+[data-tema='rubi'] :is(button:not(:disabled), .movimento):active { transform: scale(0.94); transition-duration: 0.12s; }
+[data-tema='rubi'] .fab:active { transform: scale(0.88); }
+[data-tema='rubi'] .barra button:active { transform: scale(0.9); }
+[data-tema='rubi'] .movimento:active { transform: scale(0.98); }
+[data-tema='rubi'] :is(.total, .cartao) { transition: transform 0.5s var(--mola); }
+
+/* Entrada suave dos cartões ao mudar de separador */
+[data-tema='rubi'] .conteudo > * { animation: entrar 0.55s var(--suave) both; }
+[data-tema='rubi'] .conteudo > *:nth-child(2) { animation-delay: 0.04s; }
+[data-tema='rubi'] .conteudo > *:nth-child(3) { animation-delay: 0.08s; }
+[data-tema='rubi'] .conteudo > *:nth-child(4) { animation-delay: 0.12s; }
+[data-tema='rubi'] .conteudo > *:nth-child(n + 5) { animation-delay: 0.16s; }
+@keyframes entrar { from { opacity: 0; transform: translateY(14px) scale(0.98); } }
+
+/* Quem prefere menos movimento: sem animações */
+@media (prefers-reduced-motion: reduce) {
+  [data-tema='rubi'] *, [data-tema='rubi'] *::before, [data-tema='rubi'] *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+  }
 }
-[data-tema='vidro-rubi'] {
-  --primaria: #fb7185; --secundaria: #f59e0b; --primaria-texto: #3b0610;
-  --gasto: #fda4af;
-  --fundo-img:
-    radial-gradient(60% 45% at 100% 5%, rgb(225 29 72 / 0.65), transparent 70%),
-    radial-gradient(55% 45% at 0% 50%, rgb(159 18 57 / 0.7), transparent 70%),
-    radial-gradient(60% 40% at 90% 100%, rgb(245 158 11 / 0.35), transparent 70%),
-    #0d0306;
-}
-[data-tema='vidro-cosmos'] {
-  --primaria: #e879f9; --secundaria: #818cf8; --primaria-texto: #2e0533;
-  --fundo-img:
-    radial-gradient(55% 45% at 5% 5%, rgb(192 38 211 / 0.6), transparent 70%),
-    radial-gradient(60% 45% at 100% 50%, rgb(79 70 229 / 0.7), transparent 70%),
-    radial-gradient(60% 45% at 10% 100%, rgb(6 182 212 / 0.45), transparent 70%),
-    #07031a;
-}
+
+/* Valor inválido: o campo abana (duas animações iguais para poder repetir) */
+[data-tema='rubi'] .valor-entrada.abanar-a { animation: abanar-a 0.45s var(--suave); }
+[data-tema='rubi'] .valor-entrada.abanar-b { animation: abanar-b 0.45s var(--suave); }
+@keyframes abanar-a { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+@keyframes abanar-b { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }

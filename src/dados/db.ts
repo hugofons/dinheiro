@@ -1,5 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie';
-import { NOTA_MAX, PALETA, type Categoria, type Movimento, type Tipo } from '../dominio/tipos';
+import { migrarCor, NOTA_MAX, PALETA, type Categoria, type Movimento, type Tipo } from '../dominio/tipos';
 
 type Config = { chave: string; valor: unknown };
 
@@ -14,6 +14,13 @@ db.version(1).stores({
   movimentos: 'id, data, categoriaId',
   config: 'chave',
 });
+
+// v2: paleta de joias (tema Rubi) — troca as cores antigas pelas novas.
+db.version(2).upgrade((tx) =>
+  tx.table('categorias').toCollection().modify((c: Categoria) => {
+    c.cor = migrarCor(c.cor);
+  }),
+);
 
 export const novoId = () => crypto.randomUUID();
 

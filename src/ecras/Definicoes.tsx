@@ -4,7 +4,7 @@ import { gravarConfig, guardarCategoria, lerConfig } from '../dados/db';
 import { importarCsv } from '../dados/importar';
 import { gerarCsv } from '../dominio/csv';
 import { hojeISO, isoParaPt } from '../dominio/datas';
-import { PALETA, type Categoria, type Tipo } from '../dominio/tipos';
+import { NOMES_CORES, PALETA, type Categoria, type Tipo } from '../dominio/tipos';
 
 type Props = { movimentos: import('../dominio/tipos').Movimento[]; categorias: Categoria[] };
 
@@ -69,7 +69,7 @@ export function Definicoes({ movimentos, categorias }: Props) {
             {categorias.filter((c) => c.tipo === tipo).map((c) => (
               <li key={c.id} class={c.escondida ? 'escondida' : ''}>
                 <button class="linha-cat-btn" onClick={() => abrirEdicao({ id: c.id, nome: c.nome, tipo: c.tipo, cor: c.cor, escondida: c.escondida })}>
-                  <span class="bolinha" style={{ background: c.cor }} />
+                  <span class="bolinha" style={{ background: c.cor, "--cor": c.cor }} />
                   <span>{c.nome}</span>
                   {c.escondida && <small>escondida</small>}
                 </button>
@@ -109,7 +109,7 @@ export function Definicoes({ movimentos, categorias }: Props) {
               <div class="paleta">
                 {PALETA.map((p) => (
                   <button key={p} type="button" class={`cor ${edicao.cor === p ? 'ativo' : ''}`} style={{ background: p }}
-                    aria-label={`Cor ${p}`} aria-pressed={edicao.cor === p} onClick={() => setEdicao({ ...edicao, cor: p })} />
+                    aria-label={NOMES_CORES[PALETA.indexOf(p)]} aria-pressed={edicao.cor === p} onClick={() => setEdicao({ ...edicao, cor: p })} />
                 ))}
               </div>
             </fieldset>

@@ -81,7 +81,7 @@ export function MesEcra({ mes, setMes, movimentos, categorias, abrir, irDefinico
                         <span>{c?.nome ?? 'Sem categoria'}</span>
                         <span class="num">{formatarEuros(p.total)} <small>{p.percent}%</small></span>
                       </div>
-                      <div class="barra-fundo"><div class="barra-cheia" style={{ width: `${(p.total / maior) * 100}%`, background: c?.cor }} /></div>
+                      <div class="barra-fundo"><div class="barra-cheia" style={{ width: `${(p.total / maior) * 100}%`, background: c?.cor, "--cor": c?.cor }} /></div>
                     </li>
                   );
                 })}
@@ -100,7 +100,7 @@ export function MesEcra({ mes, setMes, movimentos, categorias, abrir, irDefinico
                     return (
                       <li key={m.id}>
                         <button class="movimento" onClick={() => abrir(m)}>
-                          <span class="bolinha" style={{ background: c?.cor }} />
+                          <span class="bolinha" style={{ background: c?.cor, "--cor": c?.cor }} />
                           <span class="mov-texto">
                             <span>{c?.nome ?? 'Sem categoria'}</span>
                             {m.nota && <small>{m.nota}</small>}

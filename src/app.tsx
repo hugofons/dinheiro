@@ -2,7 +2,7 @@ import { useLiveQuery } from 'dexie-react-hooks';
 import { useState } from 'preact/hooks';
 import { Icone } from './componentes/Icone';
 import { db } from './dados/db';
-import { mesAtual, mesDe, type Mes } from './dominio/datas';
+import { chaveMes, mesAtual, mesDe, type Mes } from './dominio/datas';
 import type { Movimento } from './dominio/tipos';
 import { Definicoes } from './ecras/Definicoes';
 import { Evolucao } from './ecras/Evolucao';
@@ -29,9 +29,22 @@ export function App() {
     if (dataGuardada) setMes(mesDe(dataGuardada));
   };
 
+  const separadores = [['mes', 'Mês', 'calendario'], ['evolucao', 'Evolução', 'grafico'], ['definicoes', 'Definições', 'definicoes']] as const;
+  const indice = separadores.findIndex(([id]) => id === sep);
+
   return (
     <div class="app">
-      <main class="conteudo">
+      <div class="fundo-vivo" aria-hidden="true">
+        <div class="camada">
+          <span class="bolha b1" />
+          <span class="bolha b2" />
+          <span class="bolha b3" />
+          <span class="bolha b4" />
+        </div>
+        <span class="luz-dedo" />
+      </div>
+
+      <main class="conteudo" key={sep === 'mes' ? `mes-${chaveMes(mes)}` : sep}>
         {sep === 'mes' && (
           <MesEcra mes={mes} setMes={setMes} movimentos={movimentos} categorias={categorias}
             abrir={(m) => setForm({ movimento: m })} irDefinicoes={() => setSep('definicoes')} />
@@ -41,13 +54,14 @@ export function App() {
       </main>
 
       {sep !== 'definicoes' && (
-        <button class="fab" aria-label="Novo movimento" onClick={() => setForm({})}>
+        <button class={`fab ${form ? 'aberto' : ''}`} aria-label="Novo movimento" onClick={() => setForm({})}>
           <Icone nome="mais" />
         </button>
       )}
 
       <nav class="barra">
-        {([['mes', 'Mês', 'calendario'], ['evolucao', 'Evolução', 'grafico'], ['definicoes', 'Definições', 'definicoes']] as const).map(([id, nome, icone]) => (
+        <span class="indicador" style={{ '--i': indice }} aria-hidden="true" />
+        {separadores.map(([id, nome, icone]) => (
           <button key={id} class={sep === id ? 'ativo' : ''} aria-current={sep === id ? 'page' : undefined} onClick={() => setSep(id)}>
             <Icone nome={icone} />
             <span>{nome}</span>

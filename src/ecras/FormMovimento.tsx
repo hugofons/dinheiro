@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { Icone } from '../componentes/Icone';
 import { apagarMovimento, guardarMovimento, lerConfig } from '../dados/db';
+import { vibrar } from '../interacao';
 import { hojeISO } from '../dominio/datas';
 import { centParaTexto, lerValor } from '../dominio/dinheiro';
 import { NOTA_MAX, type Categoria, type Movimento, type Tipo } from '../dominio/tipos';
@@ -21,6 +22,16 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
   const [aGuardar, setAGuardar] = useState(false);
   const [confirmarApagar, setConfirmarApagar] = useState(false);
   const campoValor = useRef<HTMLInputElement>(null);
+  const [saindo, setSaindo] = useState(false);
+  const [abanar, setAbanar] = useState(0);
+
+  // Fecha com animação de saída (a folha desce antes de desaparecer).
+  const sair = (dataGuardada?: string) => {
+    if (saindo) return;
+    setSaindo(true);
+    const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setTimeout(() => fechar(dataGuardada), semMovimento ? 0 : 220);
+  };
 
   const doTipo = categorias.filter((c) => c.tipo === tipo && (!c.escondida || c.id === movimento?.categoriaId));
 
@@ -36,7 +47,7 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
   }, [tipo]);
 
   useEffect(() => {
-    const esc = (e: KeyboardEvent) => e.key === 'Escape' && fechar();
+    const esc = (e: KeyboardEvent) => e.key === 'Escape' && sair();
     addEventListener('keydown', esc);
     return () => removeEventListener('keydown', esc);
   }, []);
@@ -49,11 +60,16 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
     if (!categoriaId) novos.categoria = 'Escolhe uma categoria';
     if (!/^\d{4}-\d{2}-\d{2}$/.test(data)) novos.data = 'Escolhe uma data';
     setErros(novos);
-    if (Object.keys(novos).length) return;
+    if (Object.keys(novos).length) {
+      setAbanar((n) => n + 1);
+      vibrar([12, 60, 12]);
+      return;
+    }
     setAGuardar(true);
     try {
       await guardarMovimento({ id: movimento?.id, tipo, valorCent: cent!, categoriaId, data, nota });
-      fechar(data);
+      vibrar(18);
+      sair(data);
     } catch {
       setErros({ geral: 'Não foi possível guardar. Tenta outra vez.' });
       setAGuardar(false);
@@ -64,21 +80,22 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
     if (!confirmarApagar) { setConfirmarApagar(true); return; }
     try {
       await apagarMovimento(movimento!.id);
-      fechar();
+      vibrar(18);
+      sair();
     } catch {
       setErros({ geral: 'Não foi possível apagar. Tenta outra vez.' });
     }
   }
 
   return (
-    <div class="folha-fundo" onClick={(e) => e.target === e.currentTarget && fechar()}>
+    <div class={`folha-fundo ${saindo ? 'saindo' : ''}`} onClick={(e) => e.target === e.currentTarget && sair()}>
       <form class="folha" onSubmit={guardar} noValidate>
         <header class="folha-cabecalho">
           <h2>{movimento ? 'Editar movimento' : 'Novo movimento'}</h2>
-          <button type="button" class="icone-btn" aria-label="Fechar" onClick={() => fechar()}><Icone nome="fechar" /></button>
+          <button type="button" class="icone-btn" aria-label="Fechar" onClick={() => sair()}><Icone nome="fechar" /></button>
         </header>
 
-        <div class="alternador" role="radiogroup" aria-label="Tipo">
+        <div class="alternador" role="radiogroup" aria-label="Tipo" data-lado={tipo}>
           {(['despesa', 'receita'] as const).map((t) => (
             <button key={t} type="button" role="radio" aria-checked={tipo === t} class={tipo === t ? `ativo ${t}` : ''} onClick={() => setTipo(t)}>
               {t === 'despesa' ? 'Despesa' : 'Receita'}
@@ -88,7 +105,7 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
 
         <label class="campo">
           <span>Valor</span>
-          <div class="valor-entrada">
+          <div class={`valor-entrada ${abanar ? (abanar % 2 ? 'abanar-a' : 'abanar-b') : ''}`}>
             <input ref={campoValor} inputMode="decimal" autoComplete="off" placeholder="0,00" value={valor}
               aria-invalid={!!erros.valor} onInput={(e) => setValor(e.currentTarget.value)} />
             <span>€</span>

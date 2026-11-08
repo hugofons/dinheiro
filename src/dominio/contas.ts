@@ -1,4 +1,4 @@
-import { somarMeses, type Mes } from './datas';
+import { hojeISO, somarMeses, type Mes } from './datas';
 import type { Acerto, Conta, Movimento } from './tipos';
 
 /** Quanto um movimento muda o saldo de uma conta (em cêntimos). */
@@ -38,9 +38,9 @@ export function saldoNoFimDe(contaId: string, movs: Movimento[], acertos: Acerto
   return soma;
 }
 
-/** Saldo atual (inclui movimentos com data futura). */
-export function saldoConta(contaId: string, movs: Movimento[], acertos: Acerto[]): number {
-  return saldoNoFimDe(contaId, movs, acertos, '9999-12-31');
+/** Saldo de uma conta no fim do dia `dia` (por defeito hoje): movimentos com data futura ainda não contam. */
+export function saldoConta(contaId: string, movs: Movimento[], acertos: Acerto[], dia = hojeISO()): number {
+  return saldoNoFimDe(contaId, movs, acertos, dia);
 }
 
 export type Patrimonio = { total: number; porConta: Record<string, number> };
@@ -56,8 +56,8 @@ function patrimonioEm(contas: Conta[], movs: Movimento[], acertos: Acerto[], dia
   return { total, porConta };
 }
 
-export function totalContas(contas: Conta[], movs: Movimento[], acertos: Acerto[]): Patrimonio {
-  return patrimonioEm(contas, movs, acertos, '9999-12-31');
+export function totalContas(contas: Conta[], movs: Movimento[], acertos: Acerto[], dia = hojeISO()): Patrimonio {
+  return patrimonioEm(contas, movs, acertos, dia);
 }
 
 function ultimoDia(m: Mes): string {

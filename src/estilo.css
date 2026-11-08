@@ -151,7 +151,7 @@ h1, h2, h3 { margin: 0; }
 .folha-cabecalho { display: flex; justify-content: space-between; align-items: center; min-height: 48px; }
 .folha-cabecalho h2 { font-size: 1.1rem; }
 
-.alternador { display: grid; grid-template-columns: 1fr 1fr; background: var(--fundo); border-radius: 12px; padding: 4px; }
+.alternador { display: grid; grid-template-columns: repeat(var(--n, 2), 1fr); background: var(--fundo); border-radius: 12px; padding: 4px; }
 .alternador button { border: 0; background: none; height: 44px; border-radius: 9px; font-weight: 600; color: var(--texto-2); }
 .alternador button.ativo { background: var(--superficie); box-shadow: var(--sombra); }
 .alternador button.ativo.despesa { color: var(--gasto); }
@@ -209,3 +209,32 @@ h1, h2, h3 { margin: 0; }
 .versao { text-align: center; color: var(--texto-2); font-size: 0.8rem; }
 
 .sem-armazenamento { padding: 32px 16px; max-width: 480px; margin: 0 auto; }
+
+/* Contas */
+.btn-largo { width: 100%; flex: none; }
+.lista-contas { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.lista-contas.arquivadas { margin-top: 12px; opacity: 0.7; }
+.conta-linha { width: 100%; display: flex; align-items: center; gap: 12px; border: 0; background: none; text-align: left; padding: 2px 0 8px; min-height: 52px; }
+.conta-icone { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; flex: none; color: var(--cor); background: color-mix(in srgb, var(--cor) 16%, transparent); }
+.conta-icone .icone { width: 22px; height: 22px; }
+.conta-icone.pequeno { width: 26px; height: 26px; border-radius: 9px; display: inline-grid; vertical-align: middle; margin-right: 8px; }
+.conta-icone.pequeno .icone { width: 15px; height: 15px; }
+.conta-texto { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.conta-texto small, .conta-valor small { color: var(--texto-2); font-size: 0.8rem; }
+.conta-valor { display: flex; flex-direction: column; align-items: flex-end; }
+.conta-valor strong { font-size: 1.05rem; font-weight: 650; }
+.variacao { font-size: 0.85rem; opacity: 0.85; }
+.aviso-ok .aviso-linha { display: block; }
+.campos-saldo, .campos-conta { display: flex; flex-direction: column; gap: 16px; }
+.campo-saldo > span { color: var(--texto); font-size: 0.95rem; }
+.valor-saldo { display: flex; align-items: center; gap: 8px; }
+.valor-saldo input { font-size: 1.25rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+.valor-saldo span { color: var(--texto-2); }
+.chip-icone::before { display: none; }
+.chip-icone .icone { width: 16px; height: 16px; color: var(--cor); }
+.mov-icone { width: 22px; height: 22px; display: grid; place-items: center; color: var(--texto-2); flex: none; }
+.mov-icone .icone { width: 18px; height: 18px; }
+.neutro { color: var(--texto-2); }
+.pat-resumo { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; margin: -4px 0 12px; flex-wrap: wrap; }
+.pat-resumo strong { font-size: 1.5rem; }
+.pat-resumo span { font-size: 0.85rem; }

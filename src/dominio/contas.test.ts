@@ -23,7 +23,7 @@ describe('efeito', () => {
 describe('saldoConta', () => {
   it('sem acertos é a soma dos movimentos', () => {
     const movs = [mv('2026-10-01', 'receita', 100000), mv('2026-10-02', 'despesa', 2500)];
-    expect(saldoConta('a', movs, [])).toBe(97500);
+    expect(saldoConta('a', movs, [], '2026-12-31')).toBe(97500);
   });
 
   it('com acerto conta só o que foi registado depois dele', () => {
@@ -33,12 +33,12 @@ describe('saldoConta', () => {
     const mesmoDiaDepois = mv('2026-11-08', 'despesa', 300, 'a', undefined, 250);
     const depois = mv('2026-11-09', 'receita', 1000, 'a', undefined, 260);
     const esquecidoAntigo = mv('2026-11-01', 'despesa', 999, 'a', undefined, 300); // registado depois mas com data antiga: já estava no banco
-    expect(saldoConta('a', [antes, mesmoDiaAntes, mesmoDiaDepois, depois, esquecidoAntigo], [acerto])).toBe(50000 - 300 + 1000);
+    expect(saldoConta('a', [antes, mesmoDiaAntes, mesmoDiaDepois, depois, esquecidoAntigo], [acerto], '2026-12-31')).toBe(50000 - 300 + 1000);
   });
 
   it('usa o acerto mais recente', () => {
     const acertos = [ac('a', '2026-10-01', 1000, 1), ac('a', '2026-11-01', 7000, 2), ac('b', '2026-11-05', 99, 3)];
-    expect(saldoConta('a', [mv('2026-11-02', 'despesa', 500)], acertos)).toBe(6500);
+    expect(saldoConta('a', [mv('2026-11-02', 'despesa', 500)], acertos, '2026-12-31')).toBe(6500);
   });
 });
 
@@ -73,7 +73,7 @@ describe('totais e série', () => {
   const movs = [mv('2026-11-02', 'transferencia', 20000, 'a', 'b', 3), mv('2026-11-03', 'despesa', 5000, 'a', undefined, 4)];
 
   it('total das contas: transferências não mudam o total, despesas sim', () => {
-    expect(totalContas(contas, movs, acertos)).toEqual({ total: 595000, porConta: { a: 75000, b: 520000 } });
+    expect(totalContas(contas, movs, acertos, '2026-12-31')).toEqual({ total: 595000, porConta: { a: 75000, b: 520000 } });
   });
 
   it('série de património no fim de cada mês', () => {
@@ -81,5 +81,15 @@ describe('totais e série', () => {
     expect(s.map((p) => p.mes)).toEqual([{ ano: 2026, mes: 10 }, { ano: 2026, mes: 11 }]);
     expect(s[0].total).toBe(600000);
     expect(s[1]).toEqual({ mes: { ano: 2026, mes: 11 }, total: 595000, porConta: { a: 75000, b: 520000 } });
+  });
+});
+
+describe('movimentos com data futura', () => {
+  it('não contam para o saldo de hoje, mas contam no fim do mês', () => {
+    const acertos = [ac('a', '2026-11-08', 235000, 5000)];
+    const futuro = mv('2026-11-22', 'despesa', 2500, 'a', undefined, 1);
+    expect(saldoConta('a', [futuro], acertos, '2026-11-08')).toBe(235000);
+    expect(totalContas([{ id: 'a', nome: 'A', tipo: 'ordem', cor: '#000', arquivada: false, ordem: 0 }], [futuro], acertos, '2026-11-08').total).toBe(235000);
+    expect(saldoNoFimDe('a', [futuro], acertos, '2026-11-30')).toBe(232500);
   });
 });

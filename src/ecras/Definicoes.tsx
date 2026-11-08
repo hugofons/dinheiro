@@ -4,13 +4,13 @@ import { gravarConfig, guardarCategoria, lerConfig } from '../dados/db';
 import { importarCsv } from '../dados/importar';
 import { gerarCsv } from '../dominio/csv';
 import { hojeISO, isoParaPt } from '../dominio/datas';
-import { NOMES_CORES, PALETA, type Categoria, type Tipo } from '../dominio/tipos';
+import { NOMES_CORES, PALETA, type Acerto, type Categoria, type Conta, type Movimento, type Tipo } from '../dominio/tipos';
 
-type Props = { movimentos: import('../dominio/tipos').Movimento[]; categorias: Categoria[] };
+type Props = { movimentos: Movimento[]; categorias: Categoria[]; contas: Conta[]; acertos: Acerto[] };
 
 type Edicao = { id?: string; nome: string; tipo: Tipo; cor: string; escondida: boolean };
 
-export function Definicoes({ movimentos, categorias }: Props) {
+export function Definicoes({ movimentos, categorias, contas, acertos }: Props) {
   const ultima = useLiveQuery(() => lerConfig<number>('ultimaExportacao'), [], undefined);
   const [edicao, setEdicao] = useState<Edicao | null>(null);
   const [erroNome, setErroNome] = useState('');
@@ -18,7 +18,7 @@ export function Definicoes({ movimentos, categorias }: Props) {
   const ficheiro = useRef<HTMLInputElement>(null);
 
   async function exportar() {
-    const blob = new Blob([gerarCsv(movimentos, categorias)], { type: 'text/csv;charset=utf-8' });
+    const blob = new Blob([gerarCsv(movimentos, categorias, contas, acertos)], { type: 'text/csv;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;

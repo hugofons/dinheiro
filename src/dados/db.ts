@@ -129,7 +129,7 @@ export async function atualizarSaldos(novos: { contaId: string; saldoCent: numbe
     const agora = Date.now();
     const alteradas: { contaId: string; diferenca: number }[] = [];
     for (const [i, n] of novos.entries()) {
-      const atual = saldoConta(n.contaId, movs, acertos);
+      const atual = saldoConta(n.contaId, movs, acertos, data);
       if (atual === n.saldoCent) continue;
       await db.acertos.add({ id: novoId(), contaId: n.contaId, data, saldoCent: n.saldoCent, criadoEm: agora + i });
       alteradas.push({ contaId: n.contaId, diferenca: n.saldoCent - atual });

@@ -168,7 +168,7 @@
 [data-tema='rubi'] .barra {
   left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom) + 14px);
   max-width: 528px; margin: 0 auto; padding: 5px; border-radius: 34px;
-  display: grid; grid-template-columns: repeat(3, 1fr);
+  display: grid; grid-template-columns: repeat(var(--n, 3), 1fr);
 }
 [data-tema='rubi'] .barra button { height: 56px; border-radius: 28px; max-width: none; position: relative; z-index: 1; transition: color 0.3s; }
 [data-tema='rubi'] .barra button.ativo { color: #fff; }
@@ -179,7 +179,7 @@
   display: block;
   position: absolute;
   top: 5px; bottom: 5px; left: 5px;
-  width: calc((100% - 10px) / 3);
+  width: calc((100% - 10px) / var(--n, 3));
   border-radius: 28px;
   background: var(--lg-reflexo), rgb(255 255 255 / 0.13);
   box-shadow: var(--lg-brilho), 0 0 24px rgb(255 111 134 / 0.25);
@@ -206,17 +206,18 @@
   content: '';
   position: absolute;
   top: 4px; bottom: 4px; left: 4px;
-  width: calc(50% - 4px);
+  width: calc((100% - 8px) / var(--n, 2));
   border-radius: 9px;
   background: var(--lg-reflexo), rgb(255 255 255 / 0.14);
   box-shadow: var(--lg-brilho);
   transition: transform 0.5s var(--mola);
 }
-[data-tema='rubi'] .alternador[data-lado='receita']::before { transform: translateX(100%); }
+[data-tema='rubi'] .alternador::before { transform: translateX(calc(var(--i, 0) * 100%)); }
 [data-tema='rubi'] .alternador button { position: relative; z-index: 1; transition: color 0.3s; }
 [data-tema='rubi'] .alternador button.ativo { background: none; box-shadow: none; }
 [data-tema='rubi'] .alternador button.ativo.despesa { color: var(--gasto); }
 [data-tema='rubi'] .alternador button.ativo.receita { color: var(--receita); }
+[data-tema='rubi'] .alternador button.ativo.transferencia { color: var(--secundaria); }
 
 [data-tema='rubi'] .valor-entrada { border-bottom-color: color-mix(in srgb, var(--primaria) 70%, transparent); }
 [data-tema='rubi'] .valor-entrada input { background: transparent; border: 0; box-shadow: none; backdrop-filter: none; }
@@ -262,3 +263,19 @@
 [data-tema='rubi'] .valor-entrada.abanar-b { animation: abanar-b 0.45s var(--suave); }
 @keyframes abanar-a { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
 @keyframes abanar-b { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+
+/* Contas no tema Rubi */
+[data-tema='rubi'] .conta-icone {
+  background: var(--lg-reflexo), color-mix(in srgb, var(--cor) 22%, transparent);
+  border: 1px solid color-mix(in srgb, var(--cor) 45%, transparent);
+  box-shadow: var(--lg-brilho), 0 0 16px color-mix(in srgb, var(--cor) 25%, transparent);
+}
+[data-tema='rubi'] .conta-linha { transition: transform 0.45s var(--mola); }
+[data-tema='rubi'] .conta-linha:active { transform: scale(0.98); }
+[data-tema='rubi'] .lista-contas li { animation: entrar 0.5s var(--suave) both; }
+[data-tema='rubi'] .lista-contas li:nth-child(2) { animation-delay: 0.05s; }
+[data-tema='rubi'] .lista-contas li:nth-child(3) { animation-delay: 0.1s; }
+[data-tema='rubi'] .lista-contas li:nth-child(n + 4) { animation-delay: 0.15s; }
+[data-tema='rubi'] .barra button span { font-size: 0.7rem; }
+[data-tema='rubi'] .aviso-ok { background: var(--lg-reflexo), rgb(111 214 189 / 0.12); color: #c9f5e9; }
+[data-tema='rubi'] .mov-icone { color: var(--secundaria); }

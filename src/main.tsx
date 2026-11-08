@@ -1,6 +1,6 @@
 import { render } from 'preact';
 import { App } from './app';
-import { db, garantirCategoriasIniciais } from './dados/db';
+import { db, garantirDadosIniciais } from './dados/db';
 import './estilo.css';
 import './temas.css';
 
@@ -16,7 +16,7 @@ const raiz = document.getElementById('app')!;
 async function arrancar() {
   try {
     await db.open();
-    await garantirCategoriasIniciais();
+    await garantirDadosIniciais();
   } catch {
     render(
       <div class="sem-armazenamento">

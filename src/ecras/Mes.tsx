@@ -4,7 +4,7 @@ import { lerConfig } from '../dados/db';
 import { compararMeses, hojeISO, mesAtual, nomeDia, nomeMes, somarMeses, type Mes } from '../dominio/datas';
 import { formatarEuros } from '../dominio/dinheiro';
 import { gastosPorCategoria, movimentosDoMes, totaisMes } from '../dominio/resumos';
-import type { Categoria, Movimento } from '../dominio/tipos';
+import type { Categoria, Conta, Movimento } from '../dominio/tipos';
 
 const DIAS_COPIA = 30;
 
@@ -19,11 +19,14 @@ type Props = {
   setMes: (m: Mes) => void;
   movimentos: Movimento[];
   categorias: Categoria[];
+  contas: Conta[];
   abrir: (m: Movimento) => void;
   irDefinicoes: () => void;
 };
 
-export function MesEcra({ mes, setMes, movimentos, categorias, abrir, irDefinicoes }: Props) {
+export function MesEcra({ mes, setMes, movimentos, categorias, contas, abrir, irDefinicoes }: Props) {
+  const nomeConta = new Map(contas.map((c) => [c.id, c.nome]));
+  const variasContas = contas.filter((c) => !c.arquivada).length > 1;
   const ultimaExportacao = useLiveQuery(() => lerConfig<number>('ultimaExportacao'), [], undefined);
   const cats = new Map(categorias.map((c) => [c.id, c]));
   const totais = totaisMes(movimentos, mes);
@@ -96,14 +99,29 @@ export function MesEcra({ mes, setMes, movimentos, categorias, abrir, irDefinico
                 <h3>{d.data === hoje ? 'Hoje' : nomeDia(d.data)}</h3>
                 <ul class="movimentos">
                   {d.movs.map((m) => {
+                    if (m.tipo === 'transferencia') {
+                      return (
+                        <li key={m.id}>
+                          <button class="movimento transferencia" onClick={() => abrir(m)}>
+                            <span class="mov-icone"><Icone nome="transferencia" /></span>
+                            <span class="mov-texto">
+                              <span>{nomeConta.get(m.contaId) ?? '?'} → {nomeConta.get(m.contaDestinoId ?? '') ?? '?'}</span>
+                              <small>{m.nota || 'Transferência'}</small>
+                            </span>
+                            <span class="num neutro">{formatarEuros(m.valorCent)}</span>
+                          </button>
+                        </li>
+                      );
+                    }
                     const c = cats.get(m.categoriaId);
+                    const detalhe = [m.nota, variasContas ? nomeConta.get(m.contaId) : ''].filter(Boolean).join(' · ');
                     return (
                       <li key={m.id}>
                         <button class="movimento" onClick={() => abrir(m)}>
                           <span class="bolinha" style={{ background: c?.cor, "--cor": c?.cor }} />
                           <span class="mov-texto">
                             <span>{c?.nome ?? 'Sem categoria'}</span>
-                            {m.nota && <small>{m.nota}</small>}
+                            {detalhe && <small>{detalhe}</small>}
                           </span>
                           <span class={`num ${m.tipo === 'receita' ? 'positivo' : ''}`}>
                             {m.tipo === 'despesa' ? '−' : '+'}{formatarEuros(m.valorCent)}

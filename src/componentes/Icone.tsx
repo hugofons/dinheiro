@@ -8,6 +8,13 @@ const CAMINHOS = {
   fechar: 'M6 6l12 12M18 6L6 18',
   apagar: 'M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13',
   aviso: 'M12 3l10 18H2zM12 10v5M12 18v0',
+  carteira: 'M3 7h15a3 3 0 0 1 3 3v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zM3 7l12-4v4M16 14h2',
+  banco: 'M3 10h18M12 3l9 7H3zM5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 21h18',
+  cofre: 'M4 5h16v14H4zM4 19v2M20 19v2M12 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0M12 9v1M15 12h-1',
+  notas: 'M2 7h20v10H2zM12 12m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0M5 10v4M19 10v4',
+  cartao: 'M2 6h20v12H2zM2 10h20M6 15h4',
+  investimento: 'M3 17l6-6 4 4 8-8M15 7h6v6',
+  transferencia: 'M4 8h14M14 4l4 4-4 4M20 16H6M10 12l-4 4 4 4',
 } as const;
 
 export type NomeIcone = keyof typeof CAMINHOS;

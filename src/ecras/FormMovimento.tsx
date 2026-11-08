@@ -4,21 +4,29 @@ import { apagarMovimento, guardarMovimento, lerConfig } from '../dados/db';
 import { vibrar } from '../interacao';
 import { hojeISO } from '../dominio/datas';
 import { centParaTexto, lerValor } from '../dominio/dinheiro';
-import { NOTA_MAX, type Categoria, type Movimento, type Tipo } from '../dominio/tipos';
+import { NOTA_MAX, type Categoria, type Conta, type Movimento, type TipoMovimento } from '../dominio/tipos';
+import { ICONE_CONTA } from './Contas';
+
+const TIPOS = [['despesa', 'Despesa'], ['receita', 'Receita'], ['transferencia', 'Transferência']] as const;
 
 type Props = {
   movimento?: Movimento;
   categorias: Categoria[];
+  contas: Conta[];
   fechar: (dataGuardada?: string) => void;
 };
 
-export function FormMovimento({ movimento, categorias, fechar }: Props) {
-  const [tipo, setTipo] = useState<Tipo>(movimento?.tipo ?? 'despesa');
+export function FormMovimento({ movimento, categorias, contas, fechar }: Props) {
+  const [tipo, setTipo] = useState<TipoMovimento>(movimento?.tipo ?? 'despesa');
+  const [contaId, setContaId] = useState(movimento?.contaId ?? '');
+  const [contaDestinoId, setContaDestinoId] = useState(movimento?.contaDestinoId ?? '');
+  const transferencia = tipo === 'transferencia';
+  const contasVisiveis = contas.filter((c) => !c.arquivada || c.id === movimento?.contaId || c.id === movimento?.contaDestinoId);
   const [valor, setValor] = useState(movimento ? centParaTexto(movimento.valorCent) : '');
   const [categoriaId, setCategoriaId] = useState(movimento?.categoriaId ?? '');
   const [data, setData] = useState(movimento?.data ?? hojeISO());
   const [nota, setNota] = useState(movimento?.nota ?? '');
-  const [erros, setErros] = useState<{ valor?: string; categoria?: string; data?: string; geral?: string }>({});
+  const [erros, setErros] = useState<{ valor?: string; categoria?: string; conta?: string; data?: string; geral?: string }>({});
   const [aGuardar, setAGuardar] = useState(false);
   const [confirmarApagar, setConfirmarApagar] = useState(false);
   const campoValor = useRef<HTMLInputElement>(null);
@@ -33,14 +41,25 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
     setTimeout(() => fechar(dataGuardada), semMovimento ? 0 : 220);
   };
 
-  const doTipo = categorias.filter((c) => c.tipo === tipo && (!c.escondida || c.id === movimento?.categoriaId));
+  const doTipo = categorias.filter((c) => !transferencia && c.tipo === tipo && (!c.escondida || c.id === movimento?.categoriaId));
 
   useEffect(() => {
     if (!movimento) campoValor.current?.focus();
   }, []);
 
   useEffect(() => {
-    if (doTipo.some((c) => c.id === categoriaId)) return;
+    if (contaId) return;
+    lerConfig<string>('ultimaConta').then((ultima) => {
+      setContaId(contasVisiveis.some((c) => c.id === ultima) ? ultima! : contasVisiveis[0]?.id ?? '');
+    });
+  }, []);
+
+  useEffect(() => {
+    if (transferencia && (!contaDestinoId || contaDestinoId === contaId)) setContaDestinoId(contasVisiveis.find((c) => c.id !== contaId)?.id ?? '');
+  }, [tipo, contaId]);
+
+  useEffect(() => {
+    if (transferencia || doTipo.some((c) => c.id === categoriaId)) return;
     lerConfig<string>(`ultimaCategoria:${tipo}`).then((ultima) => {
       setCategoriaId(doTipo.some((c) => c.id === ultima) ? ultima! : doTipo[0]?.id ?? '');
     });
@@ -52,12 +71,30 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
     return () => removeEventListener('keydown', esc);
   }, []);
 
+  function escolherConta(rotulo: string, valorAtual: string, mudar: (id: string) => void, excluir?: string) {
+    return (
+      <fieldset class="campo">
+        <legend>{rotulo}</legend>
+        <div class="grelha-cats">
+          {contasVisiveis.filter((c) => c.id !== excluir).map((c) => (
+            <button key={c.id} type="button" class={`chip chip-icone ${c.id === valorAtual ? 'ativo' : ''}`} aria-pressed={c.id === valorAtual}
+              style={{ '--cor': c.cor }} onClick={() => mudar(c.id)}>
+              <Icone nome={ICONE_CONTA[c.tipo]} />{c.nome}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+    );
+  }
+
   async function guardar(e: Event) {
     e.preventDefault();
     const cent = lerValor(valor);
     const novos: typeof erros = {};
     if (cent === null) novos.valor = valor.trim() ? 'Valor inválido (máx. 2 casas decimais, até 1 000 000 €)' : 'Escreve o valor';
-    if (!categoriaId) novos.categoria = 'Escolhe uma categoria';
+    if (!transferencia && !categoriaId) novos.categoria = 'Escolhe uma categoria';
+    if (!contaId) novos.conta = 'Escolhe a conta';
+    else if (transferencia && (!contaDestinoId || contaDestinoId === contaId)) novos.conta = 'Escolhe duas contas diferentes';
     if (!/^\d{4}-\d{2}-\d{2}$/.test(data)) novos.data = 'Escolhe uma data';
     setErros(novos);
     if (Object.keys(novos).length) {
@@ -67,7 +104,7 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
     }
     setAGuardar(true);
     try {
-      await guardarMovimento({ id: movimento?.id, tipo, valorCent: cent!, categoriaId, data, nota });
+      await guardarMovimento({ id: movimento?.id, tipo, valorCent: cent!, categoriaId: transferencia ? '' : categoriaId, contaId, contaDestinoId: transferencia ? contaDestinoId : undefined, data, nota });
       vibrar(18);
       sair(data);
     } catch {
@@ -95,10 +132,10 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
           <button type="button" class="icone-btn" aria-label="Fechar" onClick={() => sair()}><Icone nome="fechar" /></button>
         </header>
 
-        <div class="alternador" role="radiogroup" aria-label="Tipo" data-lado={tipo}>
-          {(['despesa', 'receita'] as const).map((t) => (
+        <div class="alternador" role="radiogroup" aria-label="Tipo" data-lado={tipo} style={{ '--i': TIPOS.findIndex(([t]) => t === tipo), '--n': TIPOS.length }}>
+          {TIPOS.map(([t, nome]) => (
             <button key={t} type="button" role="radio" aria-checked={tipo === t} class={tipo === t ? `ativo ${t}` : ''} onClick={() => setTipo(t)}>
-              {t === 'despesa' ? 'Despesa' : 'Receita'}
+              {nome}
             </button>
           ))}
         </div>
@@ -113,7 +150,23 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
           {erros.valor && <small class="erro">{erros.valor}</small>}
         </label>
 
-        <fieldset class="campo">
+        {transferencia ? (
+          <>
+            {escolherConta('De', contaId, setContaId)}
+            {escolherConta('Para', contaDestinoId, setContaDestinoId, contaId)}
+            {contasVisiveis.length < 2 && <p class="nota">Para transferir, cria outra conta no separador Contas.</p>}
+            {erros.conta && <small class="erro">{erros.conta}</small>}
+          </>
+        ) : (
+          contasVisiveis.length > 1 && (
+            <>
+              {escolherConta(tipo === 'despesa' ? 'Sai de' : 'Entra em', contaId, setContaId)}
+              {erros.conta && <small class="erro">{erros.conta}</small>}
+            </>
+          )
+        )}
+
+        {!transferencia && <fieldset class="campo">
           <legend>Categoria</legend>
           <div class="grelha-cats">
             {doTipo.map((c) => (
@@ -124,7 +177,7 @@ export function FormMovimento({ movimento, categorias, fechar }: Props) {
             ))}
           </div>
           {erros.categoria && <small class="erro">{erros.categoria}</small>}
-        </fieldset>
+        </fieldset>}
 
         <div class="campos-lado">
           <label class="campo">

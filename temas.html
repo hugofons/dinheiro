@@ -16,7 +16,7 @@
       .ecras { display: flex; gap: 24px; overflow-x: auto; padding-bottom: 8px; }
       figure { margin: 0; flex: none; }
       figcaption { font-size: 0.85rem; color: var(--texto-2); margin-bottom: 8px; }
-      iframe { width: 375px; height: 812px; border: 0; border-radius: 32px; box-shadow: 0 8px 40px rgb(0 0 0 / 0.14); background: #fff; }
+      iframe { width: 375px; height: 812px; border: 0; border-radius: 32px; box-shadow: 0 8px 40px rgb(0 0 0 / 0.14); background: #05060c; }
     </style>
   </head>
   <body>
@@ -25,14 +25,17 @@
     <div id="temas"></div>
     <script>
       const temas = [
-        ['', 'Verde', 'O atual. Claro ou escuro conforme o telemóvel.'],
-        ['aurora', 'Aurora · vidro claro', 'Cartões de vidro fosco sobre um gradiente pastel.'],
-        ['noite', 'Noite · vidro escuro', 'Vidro escuro sobre luzes difusas violeta, azul e verde.'],
-        ['papel', 'Papel', 'Tons quentes de papel, números com serifa, sem sombras.'],
-        ['grafite', 'Grafite', 'Preto puro com acento lima, números grandes.'],
+        ['vidro-aurora', 'Liquid glass · Aurora', 'Violeta, azul-céu e verde-esmeralda.'],
+        ['vidro-oceano', 'Liquid glass · Oceano', 'Azul profundo, ciano e verde-água.'],
+        ['vidro-por-do-sol', 'Liquid glass · Pôr do sol', 'Laranja, rosa-magenta e roxo.'],
+        ['vidro-floresta', 'Liquid glass · Floresta', 'Verde-esmeralda, lima e verde-petróleo.'],
+        ['vidro-rubi', 'Liquid glass · Rubi', 'Vermelho-rubi, carmim e um toque de âmbar.'],
+        ['vidro-cosmos', 'Liquid glass · Cosmos', 'Magenta, índigo e ciano.'],
+        ['noite', 'Para comparar: o vidro escuro anterior', 'O tema de que gostaste, sem o efeito liquid glass.'],
       ];
       const ecras = [['', 'Mês'], ['novo', 'Novo movimento'], ['evolucao', 'Evolução']];
-      document.getElementById('temas').innerHTML = temas
+      const resumo = `<section class="tema"><h2>Visão geral</h2><p>O ecrã Mês em cada gradiente. Mais abaixo tens cada um com três ecrãs.</p><div class="ecras">${temas.filter(([t]) => t.startsWith('vidro')).map(([t, nome]) => `<figure><figcaption>${nome.replace('Liquid glass · ', '')}</figcaption><iframe loading="lazy" src="./?tema=${t}"></iframe></figure>`).join('')}</div></section>`;
+      document.getElementById('temas').innerHTML = resumo + temas
         .map(([t, nome, desc]) => `<section class="tema"><h2>${nome}</h2><p>${desc}</p><div class="ecras">${ecras
           .map(([e, n]) => `<figure><figcaption>${n}</figcaption><iframe loading="lazy" src="./?${new URLSearchParams({ ...(t && { tema: t }), ...(e && { ecra: e }) })}"></iframe></figure>`)
           .join('')}</div></section>`)

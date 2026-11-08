@@ -122,3 +122,139 @@
 [data-tema='grafite'] .total strong { font-weight: 750; letter-spacing: -0.02em; }
 [data-tema='grafite'] .total-gastos strong { font-size: 2.5rem; }
 [data-tema='grafite'] .barra { background: #0a0a0a; }
+
+/* =====================================================================
+   Liquid glass escuro: data-tema="vidro-<gradiente>"
+   Vidro muito translúcido, reflexo especular no topo, barra flutuante em cápsula.
+   ===================================================================== */
+[data-tema^='vidro'] {
+  --fundo: #05060c;
+  --superficie: rgb(255 255 255 / 0.06);
+  --texto: #f4f6ff;
+  --texto-2: rgb(235 240 255 / 0.62);
+  --linha: rgb(255 255 255 / 0.09);
+  --gasto: #ff8a9a;
+  --receita: #5eead4;
+  --perigo: #ff8a9a;
+  --aviso-fundo: rgb(255 200 80 / 0.10);
+  --aviso-texto: #ffd98a;
+  --sombra: none;
+  --raio: 26px;
+  --lg-borda: rgb(255 255 255 / 0.16);
+  --lg-reflexo: linear-gradient(145deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.02) 38%, transparent 62%, rgb(255 255 255 / 0.05));
+  --lg-brilho: inset 0 1px 0 rgb(255 255 255 / 0.35), inset 0 -1px 0 rgb(255 255 255 / 0.06), inset 1px 0 0 rgb(255 255 255 / 0.07), inset -1px 0 0 rgb(255 255 255 / 0.04);
+  --lg-sombra: 0 14px 34px rgb(0 0 0 / 0.38);
+  --lg-desfoque: blur(28px) saturate(190%) brightness(1.06);
+  color-scheme: dark;
+}
+
+[data-tema^='vidro'] :is(.total, .cartao, .aviso, .barra, .folha, .chip, .campo input, .campo select, .alternador, .icone-btn, .btn-secundario) {
+  background: var(--lg-reflexo), var(--superficie);
+  backdrop-filter: var(--lg-desfoque);
+  -webkit-backdrop-filter: var(--lg-desfoque);
+  border: 1px solid var(--lg-borda);
+  box-shadow: var(--lg-brilho), var(--lg-sombra);
+}
+[data-tema^='vidro'] :is(.chip, .campo input, .campo select, .alternador, .btn-secundario) { box-shadow: var(--lg-brilho); }
+
+/* Cabeçalho: botões redondos de vidro */
+[data-tema^='vidro'] .icone-btn { width: 42px; height: 42px; }
+[data-tema^='vidro'] .icone-btn:disabled { opacity: 0.3; }
+[data-tema^='vidro'] .folha-cabecalho .icone-btn { box-shadow: var(--lg-brilho); }
+
+/* Total de gastos: vidro tingido com as cores do gradiente */
+[data-tema^='vidro'] .total-gastos {
+  background:
+    var(--lg-reflexo),
+    linear-gradient(135deg, color-mix(in srgb, var(--primaria) 42%, transparent), color-mix(in srgb, var(--secundaria) 30%, transparent));
+  color: #fff;
+}
+[data-tema^='vidro'] .total-gastos strong { font-size: 2.4rem; letter-spacing: -0.02em; }
+[data-tema^='vidro'] .barra-fundo { background: rgb(255 255 255 / 0.08); }
+
+/* Botão + e botão principal: gota de vidro colorida */
+[data-tema^='vidro'] :is(.fab, .btn-principal) {
+  background:
+    linear-gradient(160deg, rgb(255 255 255 / 0.45), rgb(255 255 255 / 0) 45%),
+    linear-gradient(160deg, var(--primaria), var(--secundaria));
+  color: var(--primaria-texto);
+  border: 1px solid rgb(255 255 255 / 0.35);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.6), inset 0 -2px 6px rgb(0 0 0 / 0.18), 0 10px 30px color-mix(in srgb, var(--primaria) 45%, transparent);
+}
+[data-tema^='vidro'] .fab { border-radius: 50%; bottom: calc(env(safe-area-inset-bottom) + 96px); }
+
+/* Barra de separadores flutuante em cápsula */
+[data-tema^='vidro'] .barra {
+  left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom) + 14px);
+  max-width: 528px; margin: 0 auto; padding: 5px; border-radius: 34px; gap: 4px;
+}
+[data-tema^='vidro'] .barra button { height: 56px; border-radius: 28px; }
+[data-tema^='vidro'] .barra button.ativo {
+  color: #fff;
+  background: var(--lg-reflexo), rgb(255 255 255 / 0.12);
+  box-shadow: var(--lg-brilho);
+}
+
+/* Folhas (formulários) */
+[data-tema^='vidro'] .folha-fundo { background: rgb(0 0 0 / 0.35); }
+[data-tema^='vidro'] .folha {
+  --superficie: rgb(20 22 34 / 0.55);
+  border-radius: 32px 32px 0 0; border-width: 1px 0 0;
+}
+[data-tema^='vidro'] .alternador button.ativo { background: var(--lg-reflexo), rgb(255 255 255 / 0.14); box-shadow: var(--lg-brilho); }
+[data-tema^='vidro'] .alternador button.ativo.despesa { color: var(--gasto); }
+[data-tema^='vidro'] .valor-entrada { border-bottom-color: color-mix(in srgb, var(--primaria) 70%, transparent); }
+[data-tema^='vidro'] .valor-entrada input { background: transparent; border: 0; box-shadow: none; backdrop-filter: none; }
+[data-tema^='vidro'] .chip.ativo { background: var(--lg-reflexo), color-mix(in srgb, var(--cor) 32%, transparent); border-color: color-mix(in srgb, var(--cor) 70%, white); }
+[data-tema^='vidro'] .btn-apagar { color: var(--perigo); }
+
+/* ---------- Gradientes ---------- */
+[data-tema='vidro-aurora'] {
+  --primaria: #7dd3fc; --secundaria: #a78bfa; --primaria-texto: #04121f;
+  --fundo-img:
+    radial-gradient(60% 45% at 10% 0%, rgb(124 58 237 / 0.75), transparent 70%),
+    radial-gradient(55% 40% at 100% 35%, rgb(14 165 233 / 0.6), transparent 70%),
+    radial-gradient(65% 45% at 0% 100%, rgb(16 185 129 / 0.5), transparent 70%),
+    #070a17;
+}
+[data-tema='vidro-oceano'] {
+  --primaria: #22d3ee; --secundaria: #3b82f6; --primaria-texto: #022c33;
+  --fundo-img:
+    radial-gradient(60% 45% at 0% 5%, rgb(14 165 233 / 0.7), transparent 70%),
+    radial-gradient(50% 40% at 100% 45%, rgb(20 184 166 / 0.55), transparent 70%),
+    radial-gradient(70% 50% at 30% 100%, rgb(30 64 175 / 0.8), transparent 70%),
+    #020617;
+}
+[data-tema='vidro-por-do-sol'] {
+  --primaria: #fb923c; --secundaria: #f472b6; --primaria-texto: #2a0a00;
+  --fundo-img:
+    radial-gradient(60% 45% at 100% 0%, rgb(249 115 22 / 0.65), transparent 70%),
+    radial-gradient(55% 45% at 0% 40%, rgb(219 39 119 / 0.6), transparent 70%),
+    radial-gradient(70% 50% at 70% 100%, rgb(124 58 237 / 0.6), transparent 70%),
+    #12060f;
+}
+[data-tema='vidro-floresta'] {
+  --primaria: #4ade80; --secundaria: #2dd4bf; --primaria-texto: #052e16;
+  --fundo-img:
+    radial-gradient(60% 45% at 0% 0%, rgb(16 185 129 / 0.6), transparent 70%),
+    radial-gradient(50% 40% at 100% 40%, rgb(132 204 22 / 0.4), transparent 70%),
+    radial-gradient(70% 50% at 20% 100%, rgb(15 118 110 / 0.7), transparent 70%),
+    #03100b;
+}
+[data-tema='vidro-rubi'] {
+  --primaria: #fb7185; --secundaria: #f59e0b; --primaria-texto: #3b0610;
+  --gasto: #fda4af;
+  --fundo-img:
+    radial-gradient(60% 45% at 100% 5%, rgb(225 29 72 / 0.65), transparent 70%),
+    radial-gradient(55% 45% at 0% 50%, rgb(159 18 57 / 0.7), transparent 70%),
+    radial-gradient(60% 40% at 90% 100%, rgb(245 158 11 / 0.35), transparent 70%),
+    #0d0306;
+}
+[data-tema='vidro-cosmos'] {
+  --primaria: #e879f9; --secundaria: #818cf8; --primaria-texto: #2e0533;
+  --fundo-img:
+    radial-gradient(55% 45% at 5% 5%, rgb(192 38 211 / 0.6), transparent 70%),
+    radial-gradient(60% 45% at 100% 50%, rgb(79 70 229 / 0.7), transparent 70%),
+    radial-gradient(60% 45% at 10% 100%, rgb(6 182 212 / 0.45), transparent 70%),
+    #07031a;
+}

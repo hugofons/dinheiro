@@ -37,7 +37,7 @@ export function MesEcra({ mes, setMes, movimentos, categorias, abrir, irDefinico
     <>
       <header class="cabecalho-mes">
         <button class="icone-btn" aria-label="Mês anterior" onClick={() => setMes(somarMeses(mes, -1))}><Icone nome="esquerda" /></button>
-        <h1>{nomeMes(mes)}</h1>
+        <h1>{nomeMes(mes).replace(/^./, (c) => c.toUpperCase())}</h1>
         <button class="icone-btn" aria-label="Mês seguinte" disabled={noAtual} onClick={() => setMes(somarMeses(mes, 1))}><Icone nome="direita" /></button>
       </header>
 

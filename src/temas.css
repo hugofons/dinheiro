@@ -1,0 +1,124 @@
+/* Temas alternativos. Ativam-se com data-tema no <html> (ou num contentor, para pré-visualização). */
+
+.app { background: var(--fundo-img, var(--fundo)); background-attachment: fixed; }
+
+/* ---------- Aurora: vidro claro sobre gradiente pastel ---------- */
+[data-tema='aurora'] {
+  --fundo: #eef0fb;
+  --superficie: rgb(255 255 255 / 0.55);
+  --texto: #1e1b4b;
+  --texto-2: #5b5a7a;
+  --linha: rgb(30 27 75 / 0.09);
+  --primaria: #4f46e5;
+  --primaria-texto: #ffffff;
+  --gasto: #e11d48;
+  --receita: #059669;
+  --perigo: #e11d48;
+  --aviso-fundo: rgb(255 255 255 / 0.55);
+  --aviso-texto: #92400e;
+  --sombra: 0 8px 32px rgb(31 38 135 / 0.10);
+  --vidro: blur(20px) saturate(160%);
+  --borda-vidro: 1px solid rgb(255 255 255 / 0.75);
+  --fundo-img:
+    radial-gradient(circle at 12% 8%, #c7d2fe 0, transparent 42%),
+    radial-gradient(circle at 92% 22%, #fbcfe8 0, transparent 40%),
+    radial-gradient(circle at 30% 70%, #bae6fd 0, transparent 40%),
+    radial-gradient(circle at 85% 92%, #a7f3d0 0, transparent 45%),
+    linear-gradient(160deg, #eef2ff, #fdf2f8);
+  color-scheme: light;
+}
+[data-tema='aurora'] .total-gastos {
+  background: linear-gradient(135deg, rgb(79 70 229 / 0.88), rgb(168 85 247 / 0.82));
+  color: #fff;
+}
+
+/* ---------- Noite: vidro escuro sobre luzes difusas ---------- */
+[data-tema='noite'] {
+  --fundo: #070a17;
+  --superficie: rgb(255 255 255 / 0.07);
+  --texto: #eef1ff;
+  --texto-2: #9aa3c7;
+  --linha: rgb(255 255 255 / 0.09);
+  --primaria: #7dd3fc;
+  --primaria-texto: #04121f;
+  --gasto: #fb7185;
+  --receita: #34d399;
+  --perigo: #fb7185;
+  --aviso-fundo: rgb(251 191 36 / 0.12);
+  --aviso-texto: #fcd34d;
+  --sombra: 0 8px 32px rgb(0 0 0 / 0.35);
+  --vidro: blur(22px) saturate(150%);
+  --borda-vidro: 1px solid rgb(255 255 255 / 0.13);
+  --fundo-img:
+    radial-gradient(circle at 18% 2%, rgb(124 58 237 / 0.6) 0, transparent 45%),
+    radial-gradient(circle at 100% 38%, rgb(14 165 233 / 0.45) 0, transparent 42%),
+    radial-gradient(circle at 0% 95%, rgb(16 185 129 / 0.38) 0, transparent 45%),
+    #070a17;
+  color-scheme: dark;
+}
+[data-tema='noite'] .total-gastos {
+  background: linear-gradient(135deg, rgb(125 211 252 / 0.22), rgb(167 139 250 / 0.22));
+  color: #fff;
+}
+[data-tema='noite'] .fab { box-shadow: 0 8px 28px rgb(125 211 252 / 0.35); }
+
+/* Regras comuns aos temas de vidro */
+:is([data-tema='aurora'], [data-tema='noite']) :is(.total, .cartao, .aviso, .barra, .folha, .chip, .campo input, .campo select, .alternador) {
+  backdrop-filter: var(--vidro);
+  -webkit-backdrop-filter: var(--vidro);
+  border: var(--borda-vidro);
+}
+:is([data-tema='aurora'], [data-tema='noite']) .barra { border-width: 1px 0 0; margin: 0; }
+:is([data-tema='aurora'], [data-tema='noite']) .folha { border-width: 1px 0 0; }
+:is([data-tema='aurora'], [data-tema='noite']) .folha-fundo { background: rgb(0 0 0 / 0.2); backdrop-filter: blur(3px); }
+:is([data-tema='aurora'], [data-tema='noite']) .alternador button.ativo { background: var(--superficie); }
+:is([data-tema='aurora'], [data-tema='noite']) .barra-fundo { background: rgb(127 127 160 / 0.15); }
+:is([data-tema='aurora'], [data-tema='noite']) .valor-entrada input { background: transparent; border: 0; backdrop-filter: none; }
+
+/* ---------- Papel: tons quentes, números com serifa ---------- */
+[data-tema='papel'] {
+  --fundo: #f5efe6;
+  --superficie: #fffcf7;
+  --texto: #2a241d;
+  --texto-2: #7a6f62;
+  --linha: #e8dfd2;
+  --primaria: #b4532a;
+  --primaria-texto: #ffffff;
+  --gasto: #b4532a;
+  --receita: #4d7c0f;
+  --perigo: #b42318;
+  --aviso-fundo: #f3e3c3;
+  --aviso-texto: #6b4e16;
+  --sombra: none;
+  --raio: 10px;
+  color-scheme: light;
+}
+[data-tema='papel'] :is(.total, .cartao) { border: 1px solid var(--linha); }
+[data-tema='papel'] .total-gastos { background: #2a241d; color: #f5efe6; border-color: #2a241d; }
+[data-tema='papel'] :is(.total strong, .cabecalho-mes h1, .cabecalho-simples h1, .valor-entrada input) {
+  font-family: Georgia, 'Noto Serif', 'Times New Roman', serif;
+  font-weight: 600;
+}
+[data-tema='papel'] .fab { border-radius: 50%; }
+
+/* ---------- Grafite: preto puro com acento lima ---------- */
+[data-tema='grafite'] {
+  --fundo: #0a0a0a;
+  --superficie: #161616;
+  --texto: #fafafa;
+  --texto-2: #8a8a8a;
+  --linha: #262626;
+  --primaria: #d4ff3f;
+  --primaria-texto: #0a0a0a;
+  --gasto: #ff6b4a;
+  --receita: #d4ff3f;
+  --perigo: #ff6b4a;
+  --aviso-fundo: #1d2208;
+  --aviso-texto: #e5ff8a;
+  --sombra: none;
+  --raio: 22px;
+  color-scheme: dark;
+}
+[data-tema='grafite'] .total strong { font-weight: 750; letter-spacing: -0.02em; }
+[data-tema='grafite'] .total-gastos strong { font-size: 2.5rem; }
+[data-tema='grafite'] .barra { background: #0a0a0a; }

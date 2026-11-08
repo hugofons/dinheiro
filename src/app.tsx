@@ -11,10 +11,13 @@ import { MesEcra } from './ecras/Mes';
 
 type Separador = 'mes' | 'evolucao' | 'definicoes';
 
+// Pré-visualização: ?ecra=evolucao|definicoes|novo abre diretamente esse ecrã.
+const ecraPedido = new URLSearchParams(location.search).get('ecra');
+
 export function App() {
-  const [sep, setSep] = useState<Separador>('mes');
+  const [sep, setSep] = useState<Separador>(ecraPedido === 'evolucao' || ecraPedido === 'definicoes' ? ecraPedido : 'mes');
   const [mes, setMes] = useState<Mes>(mesAtual());
-  const [form, setForm] = useState<{ movimento?: Movimento } | null>(null);
+  const [form, setForm] = useState<{ movimento?: Movimento } | null>(ecraPedido === 'novo' ? {} : null);
 
   const movimentos = useLiveQuery(() => db.movimentos.toArray(), [], undefined);
   const categorias = useLiveQuery(() => db.categorias.orderBy('nome').toArray().then((cs) => cs.sort((a, b) => a.ordem - b.ordem)), [], undefined);

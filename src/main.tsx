@@ -2,6 +2,11 @@ import { render } from 'preact';
 import { App } from './app';
 import { db, garantirCategoriasIniciais } from './dados/db';
 import './estilo.css';
+import './temas.css';
+
+// Pré-visualização de temas: ?tema=aurora|noite|papel|grafite
+const temaPedido = new URLSearchParams(location.search).get('tema');
+if (temaPedido) document.documentElement.dataset.tema = temaPedido;
 
 const raiz = document.getElementById('app')!;
 

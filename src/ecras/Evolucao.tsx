@@ -12,6 +12,10 @@ type Props = { movimentos: Movimento[]; categorias: Categoria[]; contas: Conta[]
 
 const cor = (nome: string) => getComputedStyle(document.documentElement).getPropertyValue(nome).trim();
 
+// Barras crescem e a linha desenha-se ao abrir; sem animação para quem pede menos movimento.
+const animacaoGrafico = () =>
+  matchMedia('(prefers-reduced-motion: reduce)').matches ? (false as const) : { duration: 900, easing: 'easeOutQuart' as const };
+
 export function Evolucao({ movimentos, categorias, contas, acertos }: Props) {
   const [categoriaId, setCategoriaId] = useState('');
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -53,7 +57,7 @@ export function Evolucao({ movimentos, categorias, contas, acertos }: Props) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        animation: false,
+        animation: animacaoGrafico(),
         interaction: { mode: 'index', intersect: false },
         plugins: {
           legend: { position: 'bottom', labels: { color: texto, boxWidth: 12, usePointStyle: true } },
@@ -86,7 +90,7 @@ export function Evolucao({ movimentos, categorias, contas, acertos }: Props) {
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        animation: false,
+        animation: animacaoGrafico(),
         interaction: { mode: 'index', intersect: false },
         plugins: {
           legend: { position: 'bottom', labels: { color: texto, boxWidth: 12, usePointStyle: true } },

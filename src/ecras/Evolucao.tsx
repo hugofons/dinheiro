@@ -49,7 +49,7 @@ export function Evolucao({ movimentos, categorias }: Props) {
           tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${formatarEuros(Math.round((c.raw as number) * 100))}` } },
         },
         scales: {
-          x: { ticks: { color: texto }, grid: { display: false } },
+          x: { ticks: { color: texto, maxRotation: 0, autoSkipPadding: 4 }, grid: { display: false } },
           y: { ticks: { color: texto, callback: (x) => `${Number(x).toLocaleString('pt-PT')} €`, maxTicksLimit: 6 }, grid: { color: grelha } },
         },
       },
